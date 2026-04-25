@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estimer ma croissance — Bloomgram</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav">
+      <a href="pricing.html">Plans</a>
+      <a href="login.html">Se connecter</a>
+      <a href="signup.html" class="btn btn-primary">Démarrer</a>
+    </nav>
+  </div>
+</header>
+
+<div class="auth-shell" style="min-height:auto;padding:80px 24px">
+  <div class="auth-card" style="max-width:560px">
+    <h1>Estimateur de croissance IA</h1>
+    <p class="sub">Entrez votre @ Instagram. Notre IA analyse votre profil et calcule votre potentiel.</p>
+
+    <form onsubmit="event.preventDefault();simulateGrowth()">
+      <div class="field">
+        <label>Votre @ Instagram</label>
+        <input type="text" id="growthHandle" placeholder="@votrecompte" required>
+      </div>
+      <button type="submit" class="btn btn-primary" id="growthBtn">🔍 Analyser mon profil</button>
+    </form>
+
+    <div id="growthResult" style="display:none;margin-top:32px"></div>
+  </div>
+</div>
+
+<script>
+function simulateGrowth(){
+  const handle = document.getElementById('growthHandle').value;
+  const btn = document.getElementById('growthBtn');
+  const result = document.getElementById('growthResult');
+  btn.textContent = '⏳ Analyse IA en cours…';
+  btn.disabled = true;
+  setTimeout(()=>{
+    const min = 1200 + Math.floor(Math.random()*800);
+    const max = 2800 + Math.floor(Math.random()*1500);
+    const engagement = (3 + Math.random()*7).toFixed(1);
+    result.innerHTML = `
+      <div style="background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;padding:24px;border-radius:14px;margin-bottom:18px">
+        <div style="font-size:13px;opacity:.9;font-weight:600;text-transform:uppercase;letter-spacing:1px">Potentiel mensuel pour ${handle}</div>
+        <div style="font-size:36px;font-weight:800;margin:8px 0">+${min.toLocaleString('fr')} à ${max.toLocaleString('fr')}</div>
+        <div style="font-size:14px;opacity:.95">abonnés ciblés par mois avec Bloomgram Bloom</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px">
+        <div style="background:var(--bg-soft);padding:14px;border-radius:10px"><div style="font-size:12px;color:var(--muted);font-weight:600">ENGAGEMENT ESTIMÉ</div><div style="font-size:22px;font-weight:800">${engagement}%</div></div>
+        <div style="background:var(--bg-soft);padding:14px;border-radius:10px"><div style="font-size:12px;color:var(--muted);font-weight:600">QUALITÉ NICHE</div><div style="font-size:22px;font-weight:800">A+</div></div>
+      </div>
+      <a href="signup.html" class="btn btn-primary" style="width:100%;text-align:center;display:block">Démarrer ma croissance maintenant →</a>
+    `;
+    result.style.display='block';
+    btn.style.display='none';
+  },1800);
+}
+</script>
+</body>
+</html>

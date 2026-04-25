@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Se connecter — Bloomgram</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav"><a href="signup.html">Pas encore inscrit ? <strong>Créer un compte</strong></a></nav>
+  </div>
+</header>
+
+<div class="auth-shell">
+  <div class="auth-card">
+    <h1>Bon retour 👋</h1>
+    <p class="sub">Connectez-vous à votre tableau de bord croissance.</p>
+
+    <form onsubmit="event.preventDefault();window.location='dashboard/index.html'">
+      <div class="field"><label>Email</label><input type="email" placeholder="vous@domaine.com" required></div>
+      <div class="field"><label>Mot de passe</label><input type="password" placeholder="••••••••" required></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:13px">
+        <label style="display:flex;gap:6px;align-items:center;color:var(--muted);font-weight:500"><input type="checkbox"> Se souvenir de moi</label>
+        <a href="#" style="color:var(--primary);font-weight:600">Mot de passe oublié ?</a>
+      </div>
+      <button type="submit" class="btn btn-primary">Se connecter</button>
+    </form>
+
+    <div style="text-align:center;margin:24px 0;color:var(--muted);font-size:13px;position:relative">
+      <span style="background:#fff;padding:0 12px">ou continuez avec</span>
+      <hr style="position:absolute;top:50%;left:0;right:0;border:0;border-top:1px solid var(--border);z-index:-1">
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-outline">📧 Continuer avec Google</button>
+      <button class="btn btn-outline">📘 Continuer avec Facebook</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Facturation — Bloomgram</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="dash-shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="side-nav">
+      <a href="index.html">📊 Vue d'ensemble</a>
+      <a href="targeting.html">🎯 Ciblage IA</a>
+      <a href="activity.html">📋 Journal d'activité</a>
+      <a href="audience.html">👥 Audience</a>
+      <a href="content.html">🎨 Analyse contenu</a>
+      <a href="competitors.html">🔍 Concurrents</a>
+      <a href="settings.html">⚙️ Paramètres</a>
+      <a href="billing.html" class="active">💳 Facturation</a>
+    </nav>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header"><h1>💳 Facturation & abonnement</h1></div>
+
+    <div class="dash-card" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:0">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px">
+        <div>
+          <div style="font-size:13px;text-transform:uppercase;font-weight:600;letter-spacing:1px;opacity:.85">Plan actif</div>
+          <div style="font-size:32px;font-weight:800;margin:6px 0">🌱 Bloom</div>
+          <div style="font-size:14px;opacity:.95">Annuel · 408€/an (économie 420€ vs mensuel)</div>
+          <div style="font-size:13px;opacity:.85;margin-top:6px">Prochaine facture : 15 mai 2026</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn" style="background:rgba(255,255,255,.2);color:#fff;font-size:13px">Changer de plan</button>
+          <button class="btn" style="background:#fff;color:var(--primary);font-size:13px">Annuler</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h3>Méthode de paiement</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="width:56px;height:38px;background:#1a1a2e;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:11px">VISA</div>
+          <div>
+            <div style="font-weight:700">•••• •••• •••• 4242</div>
+            <div style="color:var(--muted);font-size:13px">Expire 12/2028 · Laurent Duplat</div>
+          </div>
+        </div>
+        <button class="btn btn-outline" style="font-size:13px">✏️ Modifier</button>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h3>Historique de facturation</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead><tr style="text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)"><th style="padding:12px">Date</th><th style="padding:12px">Description</th><th style="padding:12px;text-align:right">Montant</th><th style="padding:12px;text-align:right">Statut</th><th style="padding:12px;text-align:right">Facture</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px">15 avr. 2026</td><td style="padding:14px 12px">Bloomgram Bloom — annuel</td><td style="padding:14px 12px;text-align:right;font-weight:700">408,00 €</td><td style="padding:14px 12px;text-align:right"><span style="background:#dcfce7;color:var(--green);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">✓ Payé</span></td><td style="padding:14px 12px;text-align:right"><a href="#" style="color:var(--primary);font-weight:600">PDF ↓</a></td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px">15 avr. 2025</td><td style="padding:14px 12px">Bloomgram Bloom — annuel</td><td style="padding:14px 12px;text-align:right;font-weight:700">408,00 €</td><td style="padding:14px 12px;text-align:right"><span style="background:#dcfce7;color:var(--green);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">✓ Payé</span></td><td style="padding:14px 12px;text-align:right"><a href="#" style="color:var(--primary);font-weight:600">PDF ↓</a></td></tr>
+          <tr><td style="padding:14px 12px">15 avr. 2024</td><td style="padding:14px 12px">Bloomgram Seed — annuel</td><td style="padding:14px 12px;text-align:right;font-weight:700">288,00 €</td><td style="padding:14px 12px;text-align:right"><span style="background:#dcfce7;color:var(--green);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">✓ Payé</span></td><td style="padding:14px 12px;text-align:right"><a href="#" style="color:var(--primary);font-weight:600">PDF ↓</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

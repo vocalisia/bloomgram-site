@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paramètres — Bloomgram</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="dash-shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="side-nav">
+      <a href="index.html">📊 Vue d'ensemble</a>
+      <a href="targeting.html">🎯 Ciblage IA</a>
+      <a href="activity.html">📋 Journal d'activité</a>
+      <a href="audience.html">👥 Audience</a>
+      <a href="content.html">🎨 Analyse contenu</a>
+      <a href="competitors.html">🔍 Concurrents</a>
+      <a href="settings.html" class="active">⚙️ Paramètres</a>
+      <a href="billing.html">💳 Facturation</a>
+    </nav>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header"><h1>⚙️ Paramètres du compte</h1></div>
+
+    <div class="dash-card">
+      <h3>Informations Instagram</h3>
+      <div class="field"><label>@ Instagram</label><input type="text" value="@studio.olive"></div>
+      <div class="field"><label>Bio actuelle</label><input type="text" value="Studio céramique artisanale · Lyon · Slow & handmade"></div>
+    </div>
+
+    <div class="dash-card">
+      <h3>Profil utilisateur</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="field"><label>Prénom</label><input type="text" value="Laurent"></div>
+        <div class="field"><label>Nom</label><input type="text" value="Duplat"></div>
+      </div>
+      <div class="field"><label>Email</label><input type="email" value="laurent@studio-olive.fr"></div>
+      <div class="field"><label>Téléphone (optionnel)</label><input type="tel" placeholder="+33 6 ..."></div>
+    </div>
+
+    <div class="dash-card">
+      <h3>Notifications</h3>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <label style="display:flex;justify-content:space-between;align-items:center;font-weight:500"><span>Rapport hebdo par email</span><input type="checkbox" checked></label>
+        <label style="display:flex;justify-content:space-between;align-items:center;font-weight:500"><span>Alertes pic engagement</span><input type="checkbox" checked></label>
+        <label style="display:flex;justify-content:space-between;align-items:center;font-weight:500"><span>Notifications mises en avant</span><input type="checkbox" checked></label>
+        <label style="display:flex;justify-content:space-between;align-items:center;font-weight:500"><span>Newsletters Bloomgram</span><input type="checkbox" checked></label>
+      </div>
+    </div>
+
+    <div class="dash-card" style="border-color:#fecaca;background:#fef2f2">
+      <h3 style="color:#dc2626">Zone dangereuse</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+        <p style="margin:0;color:var(--muted);font-size:14px">Suspendre temporairement la croissance ou supprimer définitivement votre compte.</p>
+        <div style="display:flex;gap:10px"><button class="btn btn-outline" style="font-size:13px">⏸ Pause</button><button class="btn" style="background:#dc2626;color:#fff;font-size:13px">🗑 Supprimer</button></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary">💾 Sauvegarder les modifications</button>
+  </main>
+</div>
+</body>
+</html>

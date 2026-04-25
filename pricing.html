@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tarifs — Bloomgram</title>
+<meta name="description" content="3 plans Bloomgram dès 24€/mois. Croissance Instagram garantie. Sans engagement.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.plans-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+@media(max-width:900px){.plans-3{grid-template-columns:1fr}}
+.currency-select{display:flex;justify-content:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.currency-select button{background:#fff;border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-family:inherit;cursor:pointer;font-size:13px;font-weight:600}
+.currency-select button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="promo">
+  <strong>OFFRE FONDATEUR · -50%</strong> sur les plans annuels
+  <span class="countdown" id="countdown"><span id="hh">21</span>H <span id="mm">35</span>MIN <span id="ss">06</span>SEC</span>
+  <button class="close" onclick="this.parentElement.style.display='none'">×</button>
+</div>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav">
+      <a href="pricing.html">Plans</a>
+      <a href="case-studies.html">Résultats clients</a>
+      <a href="reviews.html">Témoignages</a>
+      <a href="resources.html">Ressources</a>
+      <a href="login.html">Se connecter</a>
+      <a href="signup.html" class="btn btn-primary">Démarrer</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:60px">
+  <div class="container">
+    <h2 class="section-title">Choisissez votre rythme de croissance</h2>
+    <p class="section-sub">Sans engagement, paiement annuel ou mensuel. Garantie satisfait ou remboursé 7 jours.</p>
+
+    <div class="currency-select">
+      <button class="active" data-cur="EUR">🇪🇺 EUR</button>
+      <button data-cur="USD">🇺🇸 USD</button>
+      <button data-cur="GBP">🇬🇧 GBP</button>
+      <button data-cur="CHF">🇨🇭 CHF</button>
+      <button data-cur="CAD">🇨🇦 CAD</button>
+    </div>
+
+    <div class="pricing-toggle">
+      <span>Mensuel</span>
+      <div class="switch on" id="billing-switch" onclick="this.classList.toggle('on');togglePrices()"></div>
+      <span>Annuel <span class="save">−50%</span></span>
+    </div>
+
+    <div class="plans-3">
+      <!-- SEED / CORE -->
+      <div class="plan">
+        <h3>🌱 Seed</h3>
+        <div class="price">
+          <span class="old" data-month="42" data-annual="42">42€</span>
+          <span class="new" data-month="42" data-annual="24">24€</span>
+          <span class="per">/mois</span>
+        </div>
+        <div style="font-size:13px;color:var(--muted)">Soit <strong>0,80€/jour</strong> · annuel</div>
+        <p class="pitch">Démarrer une croissance organique propre. Idéal comptes personnels et jeunes marques.</p>
+        <ul>
+          <li>1 200 - 2 000 abonnés ciblés/mois</li>
+          <li>Activation sous 48h</li>
+          <li>Garantie satisfait ou mois offert</li>
+          <li>Profils 100% authentiques</li>
+          <li>Analyse profil par IA</li>
+          <li>Statistiques temps réel</li>
+          <li>Sources d'engagement</li>
+          <li>Tableau de bord live</li>
+        </ul>
+        <a href="signup.html?plan=seed" class="btn btn-outline">Choisir Seed</a>
+      </div>
+
+      <!-- BLOOM / ELITE -->
+      <div class="plan elite">
+        <div style="position:absolute;top:-14px;right:32px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700">⭐ POPULAIRE</div>
+        <h3>🌸 Bloom</h3>
+        <div class="price">
+          <span class="old" data-month="59" data-annual="59">59€</span>
+          <span class="new" data-month="59" data-annual="34">34€</span>
+          <span class="per">/mois</span>
+        </div>
+        <div style="font-size:13px;color:var(--muted)">Soit <strong>1,13€/jour</strong> · annuel</div>
+        <p class="pitch">Croissance accélérée + ciblage avancé. Pour créateurs et marques en montée.</p>
+        <ul>
+          <li>2 800 - 4 000 abonnés ciblés/mois</li>
+          <li>Tout ce qui est dans Seed</li>
+          <li>Ciblage IA contextuel avancé</li>
+          <li>Conseiller croissance dédié</li>
+          <li>Support prioritaire 24/7</li>
+          <li>Coaching stratégie 1-to-1</li>
+          <li>Accès anticipé features bêta</li>
+        </ul>
+        <a href="signup.html?plan=bloom" class="btn btn-primary">Choisir Bloom</a>
+      </div>
+
+      <!-- EXPERT -->
+      <div class="plan">
+        <div style="position:absolute;top:-14px;right:32px;background:#0f0a25;color:#fff;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700">🚀 PRO</div>
+        <h3>🌳 Forest</h3>
+        <div class="price">
+          <span class="old" data-month="86" data-annual="86">86€</span>
+          <span class="new" data-month="86" data-annual="49">49€</span>
+          <span class="per">/mois</span>
+        </div>
+        <div style="font-size:13px;color:var(--muted)">Soit <strong>1,63€/jour</strong> · annuel</div>
+        <p class="pitch">Volume max + équipe dédiée. Pour agences, marques scale-up et hauts comptes.</p>
+        <ul>
+          <li>5 000 - 7 500 abonnés ciblés/mois</li>
+          <li>Tout ce qui est dans Bloom</li>
+          <li>Volume amplifié 8×</li>
+          <li>Account manager senior</li>
+          <li>Stratégie sur-mesure mensuelle</li>
+          <li>Intégration TikTok/X (bientôt)</li>
+          <li>Multi-comptes (jusqu'à 3)</li>
+          <li>Reporting white-label</li>
+        </ul>
+        <a href="signup.html?plan=forest" class="btn btn-outline">Choisir Forest</a>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:48px;color:var(--muted);font-size:14px">
+      💳 Stripe · 🍎 Apple Pay · ✓ Annulez en 1 clic · 🔒 Aucun mot de passe Instagram demandé · 🌍 Multi-devise auto
+    </p>
+  </div>
+</section>
+
+<section style="background:var(--bg-soft)">
+  <div class="container">
+    <h2 class="section-title">Comparatif détaillé</h2>
+    <div style="max-width:880px;margin:40px auto;background:#fff;border-radius:18px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;min-width:640px">
+        <thead><tr style="background:var(--bg-soft);font-size:14px">
+          <th style="text-align:left;padding:18px 24px">Fonctionnalité</th>
+          <th style="padding:18px;width:90px">Seed</th>
+          <th style="padding:18px;width:90px;color:var(--primary)">Bloom</th>
+          <th style="padding:18px;width:90px;color:#0f0a25">Forest</th>
+        </tr></thead>
+        <tbody style="font-size:14px">
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Analyse profil IA</td><td style="text-align:center">✓</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Mises en avant créateurs</td><td style="text-align:center">✓</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Newsletters (8M+ lecteurs)</td><td style="text-align:center">✓</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Hashtags & concurrents</td><td style="text-align:center">✓</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Statistiques temps réel</td><td style="text-align:center">✓</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Followers par pays</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Ciblage IA avancé</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Volume amplifié (×4)</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓ (×8)</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Conseiller dédié</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">Senior</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Support prioritaire 24/7</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Coaching 1-to-1</td><td style="text-align:center">—</td><td style="text-align:center;color:var(--primary)">✓</td><td style="text-align:center">Mensuel</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Multi-comptes</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">3 comptes</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">Reporting white-label</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 24px">TikTok / X (à venir)</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div><div class="logo" style="color:#fff;margin-bottom:14px"><span class="mark">B</span> Bloomgram</div><p style="color:#a0a3c0;font-size:14px;max-width:280px">Croissance organique IA pour Instagram.</p></div>
+      <div><h4>Produit</h4><a href="pricing.html">Plans</a><a href="case-studies.html">Études de cas</a><a href="reviews.html">Témoignages</a></div>
+      <div><h4>Société</h4><a href="#">À propos</a><a href="#">Contact</a></div>
+      <div><h4>Légal</h4><a href="#">Confidentialité</a><a href="#">CGU</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Bloomgram</span><span>Non affilié Instagram™</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+const PRICES={
+  EUR:{seed:{m:42,a:24},bloom:{m:59,a:34},forest:{m:86,a:49},sym:'€'},
+  USD:{seed:{m:49,a:29},bloom:{m:69,a:39},forest:{m:102,a:59},sym:'$'},
+  GBP:{seed:{m:36,a:21},bloom:{m:51,a:29},forest:{m:74,a:42},sym:'£'},
+  CHF:{seed:{m:45,a:26},bloom:{m:63,a:36},forest:{m:91,a:52},sym:'CHF '},
+  CAD:{seed:{m:65,a:38},bloom:{m:91,a:53},forest:{m:135,a:78},sym:'C$'}
+};
+let curCurrency='EUR';
+document.querySelectorAll('.currency-select button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.currency-select button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    curCurrency=b.dataset.cur;
+    applyCurrency();
+  };
+});
+function applyCurrency(){
+  const annual=document.getElementById('billing-switch').classList.contains('on');
+  const p=PRICES[curCurrency];
+  document.querySelectorAll('.plan').forEach((plan,i)=>{
+    const key=['seed','bloom','forest'][i];
+    if(!key||!p[key]) return;
+    const old=plan.querySelector('.old');
+    const neu=plan.querySelector('.new');
+    if(old) old.textContent=p.sym+p[key].m;
+    if(neu) neu.textContent=p.sym+(annual?p[key].a:p[key].m);
+    if(old) old.style.display=annual?'':'none';
+  });
+}
+document.addEventListener('DOMContentLoaded',applyCurrency);
+const _orig=window.togglePrices;
+window.togglePrices=function(){applyCurrency();};
+</script>
+</body>
+</html>

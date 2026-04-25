@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Journal d'activité — Bloomgram</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="dash-shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="side-nav">
+      <a href="index.html">📊 Vue d'ensemble</a>
+      <a href="targeting.html">🎯 Ciblage IA</a>
+      <a href="activity.html" class="active">📋 Journal d'activité</a>
+      <a href="audience.html">👥 Audience</a>
+      <a href="content.html">🎨 Analyse contenu</a>
+      <a href="competitors.html">🔍 Concurrents</a>
+      <a href="settings.html">⚙️ Paramètres</a>
+      <a href="billing.html">💳 Facturation</a>
+    </nav>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1>📋 Journal d'activité</h1>
+      <div style="display:flex;gap:8px">
+        <select style="padding:10px 14px;border-radius:10px;border:1px solid var(--border);font-family:inherit;font-size:14px"><option>Tous types</option><option>Mises en avant</option><option>Newsletters</option><option>Hashtags</option><option>IA</option></select>
+        <input type="date" style="padding:10px 14px;border-radius:10px;border:1px solid var(--border);font-family:inherit;font-size:14px">
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)">
+            <th style="padding:14px 12px">Date</th>
+            <th style="padding:14px 12px">Type</th>
+            <th style="padding:14px 12px">Détail</th>
+            <th style="padding:14px 12px;text-align:right">Abonnés</th>
+            <th style="padding:14px 12px;text-align:right">Engagement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">25 avril, 14:32</td><td style="padding:14px 12px"><span style="background:#ede9fe;color:var(--primary);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">🎯 Mise en avant</span></td><td style="padding:14px 12px">@decoinspoFR (87K) a partagé votre post "Vase Hana"</td><td style="padding:14px 12px;text-align:right;font-weight:700;color:var(--green)">+148</td><td style="padding:14px 12px;text-align:right">+412 ❤️</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">25 avril, 09:15</td><td style="padding:14px 12px"><span style="background:#cffafe;color:var(--accent-dark);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">📧 Newsletter</span></td><td style="padding:14px 12px">"Slow Living Weekly" (340K lecteurs) — section "Atelier de la semaine"</td><td style="padding:14px 12px;text-align:right;font-weight:700;color:var(--green)">+92</td><td style="padding:14px 12px;text-align:right">+186 ❤️</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">24 avril, 18:48</td><td style="padding:14px 12px"><span style="background:#dcfce7;color:var(--green);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">🤖 IA</span></td><td style="padding:14px 12px">Analyse hebdo — 3 nouveaux hashtags ajoutés au ciblage</td><td style="padding:14px 12px;text-align:right;color:var(--muted)">—</td><td style="padding:14px 12px;text-align:right;color:var(--muted)">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">24 avril, 11:02</td><td style="padding:14px 12px"><span style="background:#fef3c7;color:#92670a;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700"># Hashtag</span></td><td style="padding:14px 12px">Engagement organique sur #ceramicart : votre post atteint top 9</td><td style="padding:14px 12px;text-align:right;font-weight:700;color:var(--green)">+76</td><td style="padding:14px 12px;text-align:right">+221 ❤️</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">23 avril, 19:14</td><td style="padding:14px 12px"><span style="background:#ede9fe;color:var(--primary);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">🎯 Mise en avant</span></td><td style="padding:14px 12px">@earthtones.fr (52K) a re-partagé votre carrousel</td><td style="padding:14px 12px;text-align:right;font-weight:700;color:var(--green)">+103</td><td style="padding:14px 12px;text-align:right">+298 ❤️</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">22 avril, 15:30</td><td style="padding:14px 12px"><span style="background:#cffafe;color:var(--accent-dark);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">📧 Newsletter</span></td><td style="padding:14px 12px">"Maison & Co" (180K lecteurs) — featured creator</td><td style="padding:14px 12px;text-align:right;font-weight:700;color:var(--green)">+58</td><td style="padding:14px 12px;text-align:right">+114 ❤️</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:14px 12px;color:var(--muted)">21 avril, 22:00</td><td style="padding:14px 12px"><span style="background:#dcfce7;color:var(--green);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">🤖 IA</span></td><td style="padding:14px 12px">Pic d'engagement détecté : reels mardi/jeudi 18h +43%</td><td style="padding:14px 12px;text-align:right;color:var(--muted)">—</td><td style="padding:14px 12px;text-align:right;color:var(--muted)">—</td></tr>
+          <tr><td style="padding:14px 12px;color:var(--muted)">20 avril, 10:11</td><td style="padding:14px 12px"><span style="background:#ede9fe;color:var(--primary);padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700">🎯 Mise en avant</span></td><td style="padding:14px 12px">@home.aesthet (124K) a inclus votre profil dans son guide créateurs</td><td style="padding:14px 12px;text-align:right;font-weight:700;color:var(--green)">+187</td><td style="padding:14px 12px;text-align:right">+523 ❤️</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>
