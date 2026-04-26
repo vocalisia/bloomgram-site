@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multi-plateformes — TikTok, WhatsApp, X · Bloomgram</title>
+<meta name="description" content="Bloomgram automatise ta croissance sur TikTok, WhatsApp Business et X (Twitter). Mêmes outils IA, 4 plateformes.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.platforms-hero{
+  background:linear-gradient(135deg,#0f0a25 0%,#1a0f3d 100%);
+  color:#fff;padding:80px 0 60px;text-align:center;
+}
+.platforms-hero h1{font-size:56px;font-weight:800;letter-spacing:-2px;margin:0 0 18px;line-height:1.05}
+.platforms-hero p{font-size:19px;opacity:.85;max-width:700px;margin:0 auto 28px}
+.platform-tabs{display:flex;justify-content:center;gap:8px;margin-top:24px;flex-wrap:wrap}
+.platform-tab{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  padding:10px 20px;border-radius:99px;font-weight:700;cursor:pointer;
+  transition:.2s;color:#fff;font-family:inherit;font-size:14px;display:flex;align-items:center;gap:8px;
+}
+.platform-tab.active{background:linear-gradient(135deg,var(--primary),var(--accent))}
+.platform-tab:hover{transform:translateY(-2px)}
+
+.platform-section{padding:80px 0}
+.platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1180px;margin:0 auto;padding:0 24px}
+.platform-grid.reverse{direction:rtl}.platform-grid.reverse > *{direction:ltr}
+
+/* ============= TIKTOK ============= */
+.tiktok-section{background:#000;color:#fff}
+.tiktok-phone{
+  position:relative;width:340px;aspect-ratio:9/19.5;
+  background:#1a1a2e;border-radius:42px;padding:12px;
+  box-shadow:0 50px 100px rgba(0,0,0,.6);margin:0 auto;
+}
+.tiktok-screen{
+  width:100%;height:100%;background:#000;border-radius:32px;overflow:hidden;
+  position:relative;
+}
+.tiktok-video{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,#fe2c55 0%,#25f4ee 100%);
+  position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:14px;
+}
+.tiktok-bg-emoji{
+  position:absolute;inset:0;display:grid;place-items:center;font-size:140px;opacity:.15;
+}
+.tiktok-side{
+  position:absolute;right:8px;bottom:80px;display:flex;flex-direction:column;gap:14px;align-items:center;
+}
+.tiktok-side-btn{display:flex;flex-direction:column;align-items:center;color:#fff;font-size:12px;font-weight:700;gap:4px}
+.tiktok-side-btn .icon{
+  width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.3);
+  backdrop-filter:blur(10px);display:grid;place-items:center;font-size:22px;
+  transition:.2s;
+}
+.tiktok-side-btn .icon.flash{transform:scale(1.2);background:#fe2c55}
+.tiktok-creator{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:#fff;font-size:14px;font-weight:700}
+.tiktok-creator img{width:36px;height:36px;border-radius:50%;border:2px solid #fff}
+.tiktok-caption{color:#fff;font-size:13px;line-height:1.4;max-width:80%}
+.tiktok-bottom{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:12px 0;background:rgba(0,0,0,.5);font-size:18px;color:#fff}
+
+/* ============= WHATSAPP ============= */
+.whatsapp-section{background:#075e54;color:#fff}
+.wa-phone{
+  position:relative;width:340px;aspect-ratio:9/19.5;
+  background:#1a1a2e;border-radius:42px;padding:12px;
+  box-shadow:0 50px 100px rgba(0,0,0,.5);margin:0 auto;
+}
+.wa-screen{width:100%;height:100%;background:#e5ddd5;border-radius:32px;overflow:hidden;display:flex;flex-direction:column}
+.wa-header{
+  background:#075e54;color:#fff;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;font-size:13px;
+}
+.wa-header img{width:36px;height:36px;border-radius:50%;background:#25d366}
+.wa-header strong{display:block;font-size:14px;font-weight:600}
+.wa-header .online{font-size:11px;opacity:.85;color:#aef}
+.wa-msgs{
+  flex:1;padding:14px;display:flex;flex-direction:column;gap:6px;overflow:hidden;
+  background-image:repeating-linear-gradient(45deg,#dcd5cc 0,#dcd5cc 2px,transparent 2px,transparent 8px);
+}
+.wa-msg{
+  max-width:75%;padding:8px 12px;border-radius:8px;
+  font-size:13px;line-height:1.4;color:#000;position:relative;
+  animation:waIn .4s cubic-bezier(.2,1.4,.4,1);
+}
+@keyframes waIn{from{opacity:0;transform:translateY(6px)}}
+.wa-msg.them{background:#fff;align-self:flex-start;border-radius:0 8px 8px 8px}
+.wa-msg.you{background:#dcf8c6;align-self:flex-end;border-radius:8px 0 8px 8px}
+.wa-msg .time{font-size:10px;color:#666;display:inline-block;margin-left:8px}
+.wa-msg.bot::before{content:"🤖 IA · ";font-size:10px;color:#075e54;display:block;font-weight:600;margin-bottom:2px}
+.wa-input{padding:10px 14px;background:#f0f0f0;display:flex;gap:8px;align-items:center}
+.wa-input-fake{
+  flex:1;background:#fff;border-radius:20px;padding:8px 14px;font-size:13px;color:#999;
+}
+
+/* ============= X (Twitter) ============= */
+.x-section{background:#000;color:#fff}
+.x-phone{
+  position:relative;width:340px;aspect-ratio:9/19.5;
+  background:#1a1a2e;border-radius:42px;padding:12px;
+  box-shadow:0 50px 100px rgba(0,0,0,.5);margin:0 auto;
+}
+.x-screen{width:100%;height:100%;background:#000;border-radius:32px;overflow:hidden;color:#fff}
+.x-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 16px;border-bottom:1px solid #2f3336;font-size:14px;
+}
+.x-header strong{font-size:18px;font-weight:900}
+.x-tweet{
+  padding:14px 16px;border-bottom:1px solid #2f3336;
+  display:flex;gap:12px;font-size:14px;line-height:1.4;
+}
+.x-tweet img{width:42px;height:42px;border-radius:50%;flex-shrink:0;background:#444;background-size:cover}
+.x-tweet-content{flex:1;min-width:0}
+.x-tweet-head{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.x-tweet-head strong{font-size:14px;font-weight:700}
+.x-tweet-head .h{color:#71767b;font-size:13px;font-weight:400}
+.x-tweet-text{color:#fff;font-size:14px;line-height:1.4}
+.x-tweet-stats{display:flex;justify-content:space-between;margin-top:10px;color:#71767b;font-size:13px;max-width:90%}
+.x-tweet-stats .stat{display:flex;align-items:center;gap:5px;cursor:pointer;transition:.15s}
+.x-tweet-stats .stat:hover{color:#1d9bf0}
+.x-tweet-stats .stat .count.flash{color:#1d9bf0;font-weight:700}
+
+/* Common platform feature cards */
+.platform-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:32px}
+.pf-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:20px;
+}
+.pf-card .icon{font-size:28px;margin-bottom:10px}
+.pf-card h4{margin:0 0 6px;font-size:15px;font-weight:700}
+.pf-card p{font-size:13px;opacity:.85;margin:0;line-height:1.5}
+
+.platform-text h2{font-size:42px;font-weight:800;letter-spacing:-1.5px;margin:0 0 14px;line-height:1.1}
+.platform-text .lead{font-size:18px;opacity:.85;line-height:1.6}
+.platform-stats{display:flex;gap:32px;margin-top:30px;flex-wrap:wrap}
+.platform-stats > div{flex:1;min-width:120px}
+.platform-stats .num{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1}
+.platform-stats .lbl{font-size:12px;opacity:.85;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-top:6px}
+
+@media(max-width:900px){
+  .platform-grid{grid-template-columns:1fr;text-align:center}
+  .platforms-hero h1{font-size:38px}
+  .platform-text h2{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav">
+      <a href="pricing.html">Plans</a>
+      <a href="ai-chat.html">🤖 IA Chat</a>
+      <a href="ig-mockup.html">📱 IG</a>
+      <a href="platforms.html" style="color:var(--primary);font-weight:700">🌐 Multi-plateformes</a>
+      <a href="login.html">Connexion</a>
+      <a href="signup.html" class="btn btn-primary">Démarrer</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="platforms-hero">
+  <div class="container">
+    <span style="display:inline-block;background:rgba(255,255,255,.12);padding:6px 16px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:18px">🌐 BLOOMGRAM EXPAND · BÊTA</span>
+    <h1>Pas que <span style="background:linear-gradient(45deg,#feda75,#d62976);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Instagram.</span><br>4 plateformes. 1 abonnement.</h1>
+    <p>Mêmes outils IA, déployés là où ton audience est. TikTok, WhatsApp Business, X (Twitter) en plus d'Instagram.</p>
+    <div class="platform-tabs">
+      <button class="platform-tab active" data-target="ig"><span>📷</span> Instagram</button>
+      <button class="platform-tab" data-target="tiktok"><span>🎵</span> TikTok</button>
+      <button class="platform-tab" data-target="whatsapp"><span>💬</span> WhatsApp Biz</button>
+      <button class="platform-tab" data-target="x"><span>𝕏</span> X / Twitter</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TIKTOK ============= -->
+<section class="platform-section tiktok-section" id="tiktok">
+  <div class="platform-grid">
+    <div class="platform-text">
+      <span style="display:inline-block;background:#fe2c55;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;letter-spacing:.5px;margin-bottom:14px">🎵 TIKTOK FOR YOU</span>
+      <h2>Transforme tes vues en clients</h2>
+      <p class="lead">L'algo TikTok pousse tes vidéos. Bloomgram convertit les viewers en abonnés engagés et clients payants. Reply auto aux commentaires viraux dans la fenêtre de 1h.</p>
+      <div class="platform-stats">
+        <div><div class="num" style="color:#fe2c55">+847</div><div class="lbl">Vues / minute</div></div>
+        <div><div class="num" style="color:#25f4ee">+12%</div><div class="lbl">Conversion vue→follow</div></div>
+        <div><div class="num" style="color:#fff">2 min</div><div class="lbl">Reply moyen IA</div></div>
+      </div>
+      <div class="platform-features">
+        <div class="pf-card"><div class="icon">💬</div><h4>Auto-comment reply</h4><p>L'IA répond aux commentaires viraux en 30 sec — booste l'engagement signal algorithm</p></div>
+        <div class="pf-card"><div class="icon">🎯</div><h4>Hashtag scoring</h4><p>L'IA détecte les hashtags émergents dans ta niche et les ajoute à tes uploads</p></div>
+        <div class="pf-card"><div class="icon">🔄</div><h4>Cross-post auto</h4><p>Reels IG ↔ TikTok ↔ Shorts YouTube en 1 clic</p></div>
+        <div class="pf-card"><div class="icon">📊</div><h4>Analytics unifiées</h4><p>Vue, complétion, partages, follows par vidéo dans le dashboard Bloomgram</p></div>
+      </div>
+    </div>
+    <div class="tiktok-phone">
+      <div class="tiktok-screen">
+        <div class="tiktok-video">
+          <div class="tiktok-bg-emoji" id="ttBgEmoji">🎵</div>
+          <div class="tiktok-side">
+            <div class="tiktok-side-btn"><div class="icon" id="ttLikeIcon">❤️</div><span id="ttLikes">12.4K</span></div>
+            <div class="tiktok-side-btn"><div class="icon" id="ttCmtIcon">💬</div><span id="ttCmts">847</span></div>
+            <div class="tiktok-side-btn"><div class="icon">📤</div><span id="ttShares">231</span></div>
+            <div class="tiktok-side-btn"><div class="icon">🎵</div></div>
+          </div>
+          <div class="tiktok-creator">
+            <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=sophiett">
+            @sophie.vibes <span style="background:#fe2c55;font-size:10px;padding:2px 8px;border-radius:99px;margin-left:auto">Suivre</span>
+          </div>
+          <div class="tiktok-caption" id="ttCaption">3 routines matinales qui ont changé ma vie 🌸 #slowliving #morningroutine #wellness</div>
+        </div>
+        <div class="tiktok-bottom">🏠 🔍 ➕ ✉️ 👤</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= WHATSAPP ============= -->
+<section class="platform-section whatsapp-section">
+  <div class="platform-grid reverse">
+    <div class="platform-text">
+      <span style="display:inline-block;background:#25d366;color:#000;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;letter-spacing:.5px;margin-bottom:14px">💬 WHATSAPP BUSINESS API</span>
+      <h2>Convertis sur la messagerie #1 mondiale</h2>
+      <p class="lead">2 milliards d'utilisateurs. Taux d'ouverture 98%. L'IA Bloomgram répond 24/7 en français/anglais/espagnol/arabe et plus encore. Funnels de vente automatisés.</p>
+      <div class="platform-stats">
+        <div><div class="num" style="color:#25d366">98%</div><div class="lbl">Taux d'ouverture</div></div>
+        <div><div class="num" style="color:#aef">3 sec</div><div class="lbl">Reply IA</div></div>
+        <div><div class="num" style="color:#fff">42%</div><div class="lbl">Conversion lead→client</div></div>
+      </div>
+      <div class="platform-features">
+        <div class="pf-card"><div class="icon">📋</div><h4>Catalogue produits</h4><p>L'IA présente tes produits, prend les commandes, génère les liens Stripe directement dans le chat</p></div>
+        <div class="pf-card"><div class="icon">📅</div><h4>Booking auto</h4><p>Prise de RDV intégrée Calendly/Cal.com — l'IA réserve à la place du client</p></div>
+        <div class="pf-card"><div class="icon">📞</div><h4>Click-to-WA</h4><p>Boutons "Discuter" sur ton site/IG/TikTok → l'IA prend le relais immédiatement</p></div>
+        <div class="pf-card"><div class="icon">🔔</div><h4>Broadcast list</h4><p>Envoi 1-clic aux 5 000+ contacts (limite WA Business respectée) avec personnalisation IA</p></div>
+      </div>
+    </div>
+    <div class="wa-phone">
+      <div class="wa-screen">
+        <div class="wa-header">
+          <span style="font-size:20px">←</span>
+          <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=sophiewa">
+          <div>
+            <strong>Sophie · Coaching</strong>
+            <div class="online">en ligne · répond instantanément</div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:14px;font-size:18px">📞 ⋮</div>
+        </div>
+        <div class="wa-msgs" id="waMsgs"></div>
+        <div class="wa-input">
+          <span style="font-size:22px;color:#666">😊</span>
+          <div class="wa-input-fake">Tape ton message…</div>
+          <span style="font-size:22px;color:#075e54">📎</span>
+          <span style="font-size:22px;color:#075e54">🎤</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= X / Twitter ============= -->
+<section class="platform-section x-section">
+  <div class="platform-grid">
+    <div class="platform-text">
+      <span style="display:inline-block;background:#fff;color:#000;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;letter-spacing:.5px;margin-bottom:14px">𝕏 X / TWITTER</span>
+      <h2>Construis l'autorité B2B sur X</h2>
+      <p class="lead">X reste la plateforme #1 pour B2B/SaaS/Tech/Crypto. Bloomgram analyse les threads viraux de ta niche, génère des reply contextuels, croise les hashtags trending.</p>
+      <div class="platform-stats">
+        <div><div class="num" style="color:#1d9bf0">+340</div><div class="lbl">Impressions / tweet</div></div>
+        <div><div class="num" style="color:#1d9bf0">+47%</div><div class="lbl">Engagement organique</div></div>
+        <div><div class="num" style="color:#fff">15 sec</div><div class="lbl">Reply IA contextuel</div></div>
+      </div>
+      <div class="platform-features">
+        <div class="pf-card"><div class="icon">🔥</div><h4>Trend hijacking</h4><p>L'IA détecte les sujets trending dans ta niche et génère un thread aligné en 30 sec</p></div>
+        <div class="pf-card"><div class="icon">💬</div><h4>Reply guy automation</h4><p>L'IA reply intelligemment aux gros comptes de ta niche (boost visibilité)</p></div>
+        <div class="pf-card"><div class="icon">🧵</div><h4>Thread builder</h4><p>"Génère un thread sur X" — IA produit 8-12 tweets reliés avec hooks</p></div>
+        <div class="pf-card"><div class="icon">📈</div><h4>DM funnels</h4><p>Quote/RT trigger → DM auto → lien produit (style ManyChat)</p></div>
+      </div>
+    </div>
+    <div class="x-phone">
+      <div class="x-screen">
+        <div class="x-header">
+          <strong>𝕏</strong>
+          <div style="display:flex;gap:18px;color:#fff">⚙️</div>
+        </div>
+        <div class="x-tweet">
+          <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=sophiex">
+          <div class="x-tweet-content">
+            <div class="x-tweet-head">
+              <strong>Sophie</strong> <span style="color:#1d9bf0">✓</span>
+              <span class="h">@sophie_vibes · 2h</span>
+            </div>
+            <div class="x-tweet-text" id="xTweetText">3 erreurs que j'ai faites à 1K followers et qui m'ont coûté 2 ans:<br><br>1. Croire que poster + = grandir +<br>2. Ignorer la niche "trop small"<br>3. Pas répondre aux DMs de 5 followers</div>
+            <div class="x-tweet-stats">
+              <div class="stat">💬 <span class="count" id="xReplies">142</span></div>
+              <div class="stat">🔁 <span class="count" id="xRTs">387</span></div>
+              <div class="stat">❤️ <span class="count" id="xLikes">2.4K</span></div>
+              <div class="stat">📊 <span class="count" id="xViews">48K</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="x-tweet">
+          <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=marie">
+          <div class="x-tweet-content">
+            <div class="x-tweet-head">
+              <strong>Marie L.</strong>
+              <span class="h">@marie_l · à l'instant</span>
+            </div>
+            <div class="x-tweet-text">Tellement vrai le point 3 😩 j'ai fait pareil pendant 1 an</div>
+          </div>
+        </div>
+        <div class="x-tweet" style="background:rgba(29,155,240,.08)">
+          <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=sophiex">
+          <div class="x-tweet-content">
+            <div class="x-tweet-head">
+              <strong>Sophie</strong> <span style="color:#1d9bf0">✓</span>
+              <span class="h">@sophie_vibes · à l'instant</span>
+              <span style="background:#7c3aed;font-size:10px;padding:2px 6px;border-radius:4px;color:#fff;margin-left:6px">🤖 IA</span>
+            </div>
+            <div class="x-tweet-text">@marie_l Dis-toi que c'est jamais trop tard 💪 Le point 3 c'est celui qui m'a sauvée. Si tu veux je partage ma méthode "DM en 60 sec" en MP ?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON ALL PLATFORMS -->
+<section style="background:var(--bg-soft);padding:80px 0">
+  <div class="container">
+    <h2 class="section-title">Une suite. 4 plateformes.</h2>
+    <p class="section-sub">Tout depuis le même dashboard Bloomgram. Pas de logiciel à acheter en plus.</p>
+    <div style="max-width:880px;margin:48px auto 0;background:#fff;border-radius:18px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;min-width:700px">
+        <thead>
+          <tr style="background:var(--bg-soft);font-size:13px">
+            <th style="text-align:left;padding:18px 20px">Feature</th>
+            <th style="padding:18px;width:90px">📷 IG</th>
+            <th style="padding:18px;width:90px">🎵 TikTok</th>
+            <th style="padding:18px;width:90px">💬 WA</th>
+            <th style="padding:18px;width:90px">𝕏</th>
+          </tr>
+        </thead>
+        <tbody style="font-size:14px">
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">AI DM auto-reply</td><td style="text-align:center">✓</td><td style="text-align:center">—</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">AI Comments auto</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">—</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Email capture</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Cross-posting auto</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">—</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Catalogue produits</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✓</td><td style="text-align:center">—</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Booking auto</td><td style="text-align:center">✓</td><td style="text-align:center">—</td><td style="text-align:center">✓</td><td style="text-align:center">—</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Trend detection IA</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">—</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Analytics unifiées</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td></tr>
+          <tr style="border-top:1px solid var(--border)"><td style="padding:14px 20px">Plan minimum</td><td style="text-align:center;font-weight:700">Seed</td><td style="text-align:center;font-weight:700">Bloom</td><td style="text-align:center;font-weight:700">Bloom</td><td style="text-align:center;font-weight:700">Bloom</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="signup.html" class="btn btn-primary">🚀 Activer toutes les plateformes</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div><div class="logo" style="color:#fff;margin-bottom:14px"><span class="mark">B</span> Bloomgram</div></div>
+      <div><h4>Plateformes</h4><a href="ig-mockup.html">Instagram</a><a href="platforms.html">TikTok</a><a href="platforms.html">WhatsApp</a><a href="platforms.html">X</a></div>
+      <div><h4>Société</h4><a href="#">Contact</a></div>
+      <div><h4>Légal</h4><a href="#">CGU</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Bloomgram</span><span>Non affilié à Instagram™ Meta · TikTok · WhatsApp · X</span></div>
+  </div>
+</footer>
+
+<script>
+// =============== TIKTOK ANIMATIONS ===============
+const ttEmojis = ['🎵','🌸','✨','💃','☀️','🌿','🥑','📸','🌊'];
+let ttEmojiIdx = 0;
+let ttLikes = 12400, ttCmts = 847, ttShares = 231;
+
+function fmtK(n) { return n >= 1000 ? (n/1000).toFixed(1) + 'K' : n.toString(); }
+
+function ttFlash(iconId) {
+  const el = document.getElementById(iconId);
+  if (!el) return;
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 200);
+}
+
+setInterval(() => {
+  ttLikes += Math.floor(Math.random() * 30) + 10;
+  ttCmts += Math.random() < 0.4 ? 1 : 0;
+  ttShares += Math.random() < 0.2 ? 1 : 0;
+  document.getElementById('ttLikes').textContent = fmtK(ttLikes);
+  document.getElementById('ttCmts').textContent = fmtK(ttCmts);
+  document.getElementById('ttShares').textContent = fmtK(ttShares);
+  ttFlash('ttLikeIcon');
+}, 800);
+
+// Switch video every 5 sec
+const ttCaptions = [
+  '3 routines matinales qui ont changé ma vie 🌸 #slowliving #morningroutine',
+  'Mon café préféré à Paris 11ème ☕ #cafeparis #foodie',
+  'POV: tu trouves enfin ton style ✨ #ootd #parisian',
+  'Recette détox 5 min 🥑 #healthyfood #recette',
+];
+let ttCaptionIdx = 0;
+setInterval(() => {
+  ttCaptionIdx = (ttCaptionIdx + 1) % ttCaptions.length;
+  ttEmojiIdx = (ttEmojiIdx + 1) % ttEmojis.length;
+  document.getElementById('ttCaption').textContent = ttCaptions[ttCaptionIdx];
+  document.getElementById('ttBgEmoji').textContent = ttEmojis[ttEmojiIdx];
+}, 5000);
+
+// =============== WHATSAPP ANIMATIONS ===============
+const waScript = [
+  { side: 'them', text: 'Bonjour ! Je suis intéressée par tes coachings, tu peux m\'en dire plus ?', delay: 1000 },
+  { side: 'you', bot: true, text: 'Hey 👋 Bien sûr ! Je propose 3 formats : 1-to-1, group, ou online. Quel est ton objectif principal ?', delay: 1400 },
+  { side: 'them', text: 'Plutôt 1-to-1, je veux développer mon business en ligne', delay: 1500 },
+  { side: 'you', bot: true, text: 'Top ! Mon coaching 1-to-1 c\'est 8 sessions sur 2 mois → 1 200€. Je peux te bloquer un créneau découverte gratuit ?', delay: 1300 },
+  { side: 'them', text: 'oui go !', delay: 1100 },
+  { side: 'you', bot: true, text: 'Parfait 🎯 Voici mon Calendly : https://cal.com/sophie/discovery\n\nDispo cette semaine ?', delay: 1500 },
+  { side: 'them', text: 'jeudi 14h ?', delay: 1200 },
+  { side: 'you', bot: true, text: 'Booké ✓ Tu reçois la confirmation par email + un rappel SMS 1h avant. À jeudi 💜', delay: 0 },
+];
+const waMsgs = document.getElementById('waMsgs');
+let waIdx = 0;
+function waNext() {
+  if (waIdx >= waScript.length) {
+    setTimeout(() => { waMsgs.innerHTML = ''; waIdx = 0; waNext(); }, 5000);
+    return;
+  }
+  const step = waScript[waIdx];
+  const msg = document.createElement('div');
+  msg.className = `wa-msg ${step.side} ${step.bot ? 'bot' : ''}`;
+  const time = new Date().toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' });
+  msg.innerHTML = step.text.replace(/\n/g, '<br>') + `<span class="time">${time} ${step.side === 'you' ? '✓✓' : ''}</span>`;
+  waMsgs.appendChild(msg);
+  waMsgs.scrollTop = waMsgs.scrollHeight;
+  waIdx++;
+  setTimeout(waNext, step.delay);
+}
+setTimeout(waNext, 1500);
+
+// =============== X ANIMATIONS ===============
+let xLikes = 2400, xRTs = 387, xReplies = 142, xViews = 48000;
+function fmtNum(n) {
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n.toString();
+}
+setInterval(() => {
+  xLikes += Math.floor(Math.random() * 8) + 2;
+  xRTs += Math.random() < 0.3 ? 1 : 0;
+  xReplies += Math.random() < 0.2 ? 1 : 0;
+  xViews += Math.floor(Math.random() * 50) + 20;
+  document.getElementById('xLikes').textContent = fmtNum(xLikes);
+  document.getElementById('xRTs').textContent = fmtNum(xRTs);
+  document.getElementById('xReplies').textContent = fmtNum(xReplies);
+  document.getElementById('xViews').textContent = fmtNum(xViews);
+  // Flash random
+  const flashIds = ['xLikes','xRTs','xReplies','xViews'];
+  const flashId = flashIds[Math.floor(Math.random() * flashIds.length)];
+  const el = document.getElementById(flashId);
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 250);
+}, 700);
+
+// =============== TAB SWITCH (smooth scroll) ===============
+document.querySelectorAll('.platform-tab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.target;
+    if (target === 'ig') window.location.href = 'ig-mockup.html';
+    else document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+  };
+});
+</script>
+</body>
+</html>
