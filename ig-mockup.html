@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Démo Instagram live — Bloomgram</title>
+<meta name="description" content="Démo animée d'un compte Instagram qui grandit en temps réel avec Bloomgram.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+:root{--ig-grad:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
+
+body{
+  background:linear-gradient(135deg,#1a0f3d 0%,#7c3aed 50%,#06b6d4 100%);
+  min-height:100vh;color:#fff;
+}
+.demo-page{min-height:100vh;padding:40px 20px;display:flex;flex-direction:column;align-items:center}
+
+.demo-header{text-align:center;margin-bottom:48px;max-width:720px}
+.demo-header .badge{
+  display:inline-block;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);padding:6px 16px;border-radius:99px;
+  font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:18px;
+}
+.demo-header h1{font-size:48px;font-weight:800;letter-spacing:-1.5px;margin:0 0 14px;line-height:1.1}
+.demo-header p{font-size:17px;opacity:.85;line-height:1.6}
+
+/* ============= IPHONE FRAME ============= */
+.phone{
+  position:relative;width:380px;aspect-ratio:9/19.5;
+  background:#1a1a2e;border-radius:48px;padding:14px;
+  box-shadow:0 50px 100px rgba(0,0,0,.5),0 0 0 2px rgba(255,255,255,.1);
+}
+.phone::before{
+  content:"";position:absolute;top:24px;left:50%;transform:translateX(-50%);
+  width:120px;height:32px;background:#000;border-radius:24px;z-index:10;
+}
+.phone-screen{
+  width:100%;height:100%;background:#fff;border-radius:36px;
+  overflow:hidden;position:relative;
+}
+
+/* iOS status bar */
+.status-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 28px 8px;font-size:13px;font-weight:600;color:#000;
+  font-variant-numeric:tabular-nums;
+}
+.status-icons{display:flex;gap:6px;align-items:center;font-size:14px}
+
+/* IG header */
+.ig-top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 16px;border-bottom:1px solid #efefef;
+}
+.ig-username{font-weight:700;font-size:18px;color:#000;display:flex;align-items:center;gap:4px}
+.ig-username::after{content:"⌄";opacity:.5;font-size:14px}
+.ig-icons{display:flex;gap:18px;font-size:22px;color:#000;position:relative}
+.dm-badge{
+  position:absolute;top:-4px;right:-6px;background:#ff2d55;color:#fff;
+  font-size:10px;font-weight:700;border-radius:10px;padding:1px 5px;min-width:16px;text-align:center;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  animation:bounce-in .4s cubic-bezier(.4,1.6,.6,1);
+}
+@keyframes bounce-in{0%{transform:scale(0)}100%{transform:scale(1)}}
+
+/* Profile section */
+.profile{padding:14px 16px;color:#000}
+.profile-row{display:flex;align-items:center;gap:24px;margin-bottom:14px}
+.profile-pic-wrap{
+  width:88px;height:88px;border-radius:50%;
+  background:var(--ig-grad);padding:3px;
+  position:relative;
+}
+.profile-pic{
+  width:100%;height:100%;border-radius:50%;border:3px solid #fff;
+  background:#ddd;background-size:cover;background-position:center;
+  display:block;
+}
+.live-dot{
+  position:absolute;bottom:-2px;right:-2px;width:24px;height:24px;
+  background:#ff2d55;border-radius:50%;border:3px solid #fff;
+  display:grid;place-items:center;font-size:8px;font-weight:800;color:#fff;
+  animation:pulse-dot 1.4s infinite;
+}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(255,45,85,.7)}50%{box-shadow:0 0 0 8px rgba(255,45,85,0)}}
+
+.profile-stats{flex:1;display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.stat{cursor:pointer}
+.stat-num{font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;transition:color .2s}
+.stat-num.flash{color:#d62976;transform:scale(1.1)}
+.stat-label{font-size:13px;color:#262626}
+
+.profile-name{font-weight:700;font-size:14px;margin-bottom:2px}
+.profile-bio{font-size:14px;line-height:1.4;color:#262626}
+.profile-bio .link{color:#0095f6;font-weight:500}
+.profile-bio .emoji{display:inline-block}
+
+.profile-actions{display:flex;gap:6px;margin-top:14px}
+.btn-follow{
+  flex:1;padding:8px;background:#0095f6;color:#fff;border:0;border-radius:8px;
+  font-weight:600;font-size:14px;cursor:pointer;
+  font-family:inherit;
+}
+.btn-follow.followed{background:#efefef;color:#000}
+.btn-msg{
+  flex:1;padding:8px;background:#efefef;color:#000;border:0;border-radius:8px;
+  font-weight:600;font-size:14px;font-family:inherit;cursor:pointer;
+}
+.btn-arrow{padding:8px 12px;background:#efefef;border-radius:8px;font-size:14px}
+
+/* Highlights row */
+.highlights{display:flex;gap:12px;padding:14px 16px;overflow-x:auto;border-bottom:1px solid #efefef}
+.highlight{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0}
+.highlight-circle{
+  width:64px;height:64px;border-radius:50%;background:#f0f0f0;
+  background-size:cover;background-position:center;
+  border:1px solid #ddd;
+  position:relative;display:grid;place-items:center;font-size:24px;
+}
+.highlight-label{font-size:11px;color:#000;font-weight:500}
+
+/* Tabs */
+.ig-tabs{display:flex;border-top:1px solid #efefef}
+.ig-tab{flex:1;text-align:center;padding:10px;font-size:18px;color:#999}
+.ig-tab.active{color:#000;border-top:1px solid #000;margin-top:-1px}
+
+/* Posts grid */
+.posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#efefef}
+.post{
+  aspect-ratio:1;background-size:cover;background-position:center;position:relative;
+  cursor:pointer;background:#ddd;
+}
+.post::before{
+  content:"";position:absolute;inset:0;background:rgba(0,0,0,0);transition:.2s;
+}
+.post:hover::before{background:rgba(0,0,0,.4)}
+.post-stats{
+  position:absolute;inset:0;display:flex;justify-content:center;align-items:center;gap:14px;
+  color:#fff;font-weight:700;font-size:13px;opacity:0;transition:.2s;
+}
+.post:hover .post-stats{opacity:1}
+.post-stats span{display:flex;align-items:center;gap:4px}
+
+/* Floating notifications */
+.notifs{position:fixed;top:80px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:100;pointer-events:none}
+.notif{
+  background:rgba(255,255,255,.95);backdrop-filter:blur(20px);
+  color:#000;padding:12px 16px;border-radius:14px;
+  box-shadow:0 12px 40px rgba(0,0,0,.3);
+  display:flex;align-items:center;gap:10px;font-size:13px;
+  min-width:240px;max-width:280px;
+  animation:slide-in .4s cubic-bezier(.2,1.6,.4,1),slide-out .4s 4s forwards;
+}
+@keyframes slide-in{from{transform:translateX(120%);opacity:0}}
+@keyframes slide-out{to{transform:translateX(120%);opacity:0}}
+.notif-icon{font-size:20px;flex-shrink:0}
+.notif strong{font-weight:700}
+.notif .notif-text{flex:1;line-height:1.3}
+.notif .notif-time{font-size:10px;color:#999}
+
+/* Side panel — counters live */
+.side-panel{
+  position:absolute;left:-280px;top:80px;width:240px;
+  background:rgba(255,255,255,.1);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:20px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.side-stat{display:flex;justify-content:space-between;align-items:center}
+.side-stat-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.7}
+.side-stat-num{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.side-stat-delta{font-size:11px;color:#10b981;font-weight:700}
+
+/* Right panel — recent activity */
+.right-panel{
+  position:absolute;right:-300px;top:80px;width:260px;
+  background:rgba(0,0,0,.4);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:18px;
+  font-size:12px;
+}
+.right-panel h3{margin:0 0 14px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.85}
+.activity-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;line-height:1.4}
+.activity-item .dot{width:6px;height:6px;background:#10b981;border-radius:50%;margin-top:6px;flex-shrink:0;animation:pulse-dot 2s infinite}
+.activity-item:nth-child(2) .dot{background:#f59e0b}
+.activity-item:nth-child(3) .dot{background:#06b6d4}
+
+@media(max-width:1100px){
+  .side-panel,.right-panel{display:none}
+}
+@media(max-width:480px){
+  .phone{width:340px}
+  .demo-header h1{font-size:32px}
+}
+
+.cta-section{margin-top:60px;text-align:center;padding:32px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border-radius:24px;max-width:600px}
+.cta-section .btn-cta{background:#fff;color:#1a0f3d;font-weight:800}
+</style>
+</head>
+<body>
+
+<!-- Floating notifications stack -->
+<div class="notifs" id="notifs"></div>
+
+<div class="demo-page">
+
+  <header class="demo-header">
+    <div class="badge">📊 SIMULATION TEMPS RÉEL · Compte démo @sophie.vibes</div>
+    <h1>Voyez un compte Instagram <span style="background:linear-gradient(90deg,#feda75,#d62976);-webkit-background-clip:text;-webkit-text-fill-color:transparent">grandir live</span></h1>
+    <p>Animation en temps réel d'un compte typique sous Bloomgram. Followers, likes, commentaires, DMs — tout monte sous tes yeux. Hover sur les posts pour voir l'engagement.</p>
+  </header>
+
+  <!-- PHONE + SIDE PANELS -->
+  <div style="position:relative">
+
+    <!-- LEFT PANEL : LIVE COUNTERS -->
+    <div class="side-panel">
+      <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.85">📈 Croissance live</div>
+      <div class="side-stat">
+        <div>
+          <div class="side-stat-label">Followers</div>
+          <div class="side-stat-num" id="sidFollowers">12 480</div>
+        </div>
+        <div class="side-stat-delta" id="sidFollowersDelta">+0/min</div>
+      </div>
+      <div class="side-stat">
+        <div>
+          <div class="side-stat-label">Likes (24h)</div>
+          <div class="side-stat-num" id="sidLikes">3 247</div>
+        </div>
+        <div class="side-stat-delta" id="sidLikesDelta">+0</div>
+      </div>
+      <div class="side-stat">
+        <div>
+          <div class="side-stat-label">Commentaires</div>
+          <div class="side-stat-num" id="sidComments">428</div>
+        </div>
+        <div class="side-stat-delta" id="sidCommentsDelta">+0</div>
+      </div>
+      <div class="side-stat">
+        <div>
+          <div class="side-stat-label">DMs (24h)</div>
+          <div class="side-stat-num" id="sidDms">87</div>
+        </div>
+        <div class="side-stat-delta" id="sidDmsDelta">+0</div>
+      </div>
+      <div class="side-stat">
+        <div>
+          <div class="side-stat-label">Vues profil</div>
+          <div class="side-stat-num" id="sidViews">8 124</div>
+        </div>
+        <div class="side-stat-delta" id="sidViewsDelta">+0</div>
+      </div>
+    </div>
+
+    <!-- THE PHONE -->
+    <div class="phone">
+      <div class="phone-screen">
+        <!-- iOS status bar -->
+        <div class="status-bar">
+          <span id="clockTime">9:41</span>
+          <div class="status-icons">📶 5G 🔋</div>
+        </div>
+
+        <!-- IG top bar -->
+        <div class="ig-top">
+          <div class="ig-username">sophie.vibes</div>
+          <div class="ig-icons">
+            <span>＋</span>
+            <span style="position:relative">✉
+              <span class="dm-badge" id="dmBadge">3</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Profile header -->
+        <div class="profile">
+          <div class="profile-row">
+            <div class="profile-pic-wrap">
+              <div class="profile-pic" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=sophiev&backgroundColor=ffd5dc')"></div>
+              <div class="live-dot">L</div>
+            </div>
+            <div class="profile-stats">
+              <div class="stat"><div class="stat-num" id="postsCount">182</div><div class="stat-label">posts</div></div>
+              <div class="stat"><div class="stat-num" id="followersCount">12 480</div><div class="stat-label">abonnés</div></div>
+              <div class="stat"><div class="stat-num" id="followingCount">347</div><div class="stat-label">suivis</div></div>
+            </div>
+          </div>
+          <div class="profile-name">Sophie · Lifestyle Paris ✨</div>
+          <div class="profile-bio">
+            🌿 slow living &amp; good vibes<br>
+            📸 captures du quotidien<br>
+            💌 collabs : sophie@email.com<br>
+            <span class="link">↳ linkin.bio/sophie</span>
+          </div>
+          <div class="profile-actions">
+            <button class="btn-follow" id="followBtn" onclick="toggleFollow()">Suivre</button>
+            <button class="btn-msg">Message</button>
+            <span class="btn-arrow">▾</span>
+          </div>
+        </div>
+
+        <!-- Highlights -->
+        <div class="highlights">
+          <div class="highlight"><div class="highlight-circle">🌸</div><div class="highlight-label">Daily</div></div>
+          <div class="highlight"><div class="highlight-circle">☕</div><div class="highlight-label">Café</div></div>
+          <div class="highlight"><div class="highlight-circle">📚</div><div class="highlight-label">Lectures</div></div>
+          <div class="highlight"><div class="highlight-circle">🏞️</div><div class="highlight-label">Voyages</div></div>
+          <div class="highlight"><div class="highlight-circle">🎨</div><div class="highlight-label">Art</div></div>
+          <div class="highlight"><div class="highlight-circle">+</div><div class="highlight-label">New</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="ig-tabs">
+          <div class="ig-tab active">▦</div>
+          <div class="ig-tab">🎬</div>
+          <div class="ig-tab">👤</div>
+        </div>
+
+        <!-- Posts grid 3x3 -->
+        <div class="posts-grid" id="postsGrid">
+          <!-- Posts injected by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL : ACTIVITY FEED -->
+    <div class="right-panel">
+      <h3>📡 Activité 24h</h3>
+      <div id="activityFeed"></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div style="font-size:14px;opacity:.85;margin-bottom:8px">⚖️ Simulation illustrative</div>
+    <h2 style="font-size:28px;margin:0 0 14px">Reproduis ce résultat avec ton propre compte</h2>
+    <p style="opacity:.85;margin:0 0 20px">Configuration en 90 secondes. Premiers abonnés en 48h.</p>
+    <a href="signup.html" class="btn btn-cta">🚀 Démarrer ma croissance</a>
+  </div>
+
+  <!-- LINKS -->
+  <div style="margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+    <a href="index.html" style="color:rgba(255,255,255,.7);font-size:13px">← Retour accueil</a>
+    <a href="proof.html" style="color:rgba(255,255,255,.7);font-size:13px">Voir 3 profils animés</a>
+    <a href="pricing.html" style="color:rgba(255,255,255,.7);font-size:13px">Plans</a>
+  </div>
+
+</div>
+
+<script>
+// ============= CLOCK =============
+function updateClock() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('clockTime').textContent = `${hh}:${mm}`;
+}
+updateClock();
+setInterval(updateClock, 30000);
+
+// ============= POSTS GRID (Picsum) =============
+const postSeeds = ['cafe','flower','book','beach','art','sunset','plant','window','outfit'];
+const grid = document.getElementById('postsGrid');
+const postLikes = []; // [{el, count}]
+postSeeds.forEach((seed, i) => {
+  const post = document.createElement('div');
+  post.className = 'post';
+  post.style.backgroundImage = `url('https://picsum.photos/seed/${seed}sophie${i}/300/300')`;
+  const likes = Math.floor(Math.random() * 800) + 200;
+  const comments = Math.floor(Math.random() * 80) + 10;
+  post.innerHTML = `
+    <div class="post-stats">
+      <span><span class="like-count">${likes}</span> ❤️</span>
+      <span><span class="cmt-count">${comments}</span> 💬</span>
+    </div>
+  `;
+  grid.appendChild(post);
+  postLikes.push({
+    likeEl: post.querySelector('.like-count'),
+    cmtEl: post.querySelector('.cmt-count'),
+    likes, comments
+  });
+});
+
+// ============= ANIMATED COUNTERS =============
+const counters = {
+  followers: { el: document.getElementById('followersCount'), val: 12480, deltaPerTick: () => Math.floor(Math.random() * 4) + 1 },
+  posts: { el: document.getElementById('postsCount'), val: 182, deltaPerTick: () => Math.random() < 0.05 ? 1 : 0 },
+  following: { el: document.getElementById('followingCount'), val: 347, deltaPerTick: () => 0 },
+};
+const sideCounters = {
+  followers: { el: document.getElementById('sidFollowers'), delta: document.getElementById('sidFollowersDelta'), val: 12480, recent: 0 },
+  likes: { el: document.getElementById('sidLikes'), delta: document.getElementById('sidLikesDelta'), val: 3247, recent: 0 },
+  comments: { el: document.getElementById('sidComments'), delta: document.getElementById('sidCommentsDelta'), val: 428, recent: 0 },
+  dms: { el: document.getElementById('sidDms'), delta: document.getElementById('sidDmsDelta'), val: 87, recent: 0 },
+  views: { el: document.getElementById('sidViews'), delta: document.getElementById('sidViewsDelta'), val: 8124, recent: 0 },
+};
+
+function flashStat(el) {
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 300);
+}
+
+function fmt(n) { return n.toLocaleString('fr'); }
+
+function tickCounters() {
+  // Phone counters
+  Object.values(counters).forEach(c => {
+    const d = c.deltaPerTick();
+    if (d > 0) { c.val += d; c.el.textContent = fmt(c.val); flashStat(c.el); }
+  });
+
+  // Side panel — followers from main
+  sideCounters.followers.val = counters.followers.val;
+  sideCounters.followers.el.textContent = fmt(sideCounters.followers.val);
+
+  // Side panel — likes/comments/dms/views increment randomly
+  const likeAdd = Math.floor(Math.random() * 8) + 2;
+  const cmtAdd = Math.random() < 0.3 ? Math.floor(Math.random() * 3) + 1 : 0;
+  const dmAdd = Math.random() < 0.15 ? 1 : 0;
+  const viewAdd = Math.floor(Math.random() * 12) + 3;
+
+  sideCounters.likes.val += likeAdd;
+  sideCounters.likes.recent += likeAdd;
+  sideCounters.likes.el.textContent = fmt(sideCounters.likes.val);
+  sideCounters.likes.delta.textContent = `+${sideCounters.likes.recent} (1h)`;
+
+  sideCounters.comments.val += cmtAdd;
+  sideCounters.comments.recent += cmtAdd;
+  sideCounters.comments.el.textContent = fmt(sideCounters.comments.val);
+  sideCounters.comments.delta.textContent = `+${sideCounters.comments.recent} (1h)`;
+
+  sideCounters.dms.val += dmAdd;
+  sideCounters.dms.recent += dmAdd;
+  sideCounters.dms.el.textContent = fmt(sideCounters.dms.val);
+  sideCounters.dms.delta.textContent = `+${sideCounters.dms.recent} (1h)`;
+
+  sideCounters.views.val += viewAdd;
+  sideCounters.views.recent += viewAdd;
+  sideCounters.views.el.textContent = fmt(sideCounters.views.val);
+  sideCounters.views.delta.textContent = `+${sideCounters.views.recent} (1h)`;
+
+  // Distribute likes to random posts
+  if (likeAdd > 0) {
+    const idx = Math.floor(Math.random() * postLikes.length);
+    postLikes[idx].likes += likeAdd;
+    postLikes[idx].likeEl.textContent = fmt(postLikes[idx].likes);
+  }
+  if (cmtAdd > 0) {
+    const idx = Math.floor(Math.random() * postLikes.length);
+    postLikes[idx].comments += cmtAdd;
+    postLikes[idx].cmtEl.textContent = fmt(postLikes[idx].comments);
+  }
+}
+
+// Tick every 600ms
+setInterval(tickCounters, 600);
+
+// ============= DM BADGE INCREMENT =============
+let dmBadgeCount = 3;
+const dmBadge = document.getElementById('dmBadge');
+setInterval(() => {
+  if (Math.random() < 0.2) {
+    dmBadgeCount++;
+    dmBadge.style.animation = 'none';
+    void dmBadge.offsetHeight;
+    dmBadge.style.animation = 'bounce-in .4s cubic-bezier(.4,1.6,.6,1)';
+    dmBadge.textContent = dmBadgeCount > 99 ? '99+' : dmBadgeCount;
+  }
+}, 4000);
+
+// ============= FOLLOW BUTTON =============
+let isFollowing = false;
+function toggleFollow() {
+  const btn = document.getElementById('followBtn');
+  isFollowing = !isFollowing;
+  if (isFollowing) {
+    btn.textContent = 'Abonné(e) ✓';
+    btn.classList.add('followed');
+    counters.followers.val++;
+    counters.followers.el.textContent = fmt(counters.followers.val);
+    flashStat(counters.followers.el);
+  } else {
+    btn.textContent = 'Suivre';
+    btn.classList.remove('followed');
+  }
+}
+
+// ============= FLOATING NOTIFICATIONS =============
+const notifTypes = [
+  { icon: '❤️', msg: (n) => `<strong>${n}</strong> a aimé ta photo` },
+  { icon: '💬', msg: (n) => `<strong>${n}</strong> a commenté : "trop belle ! 😍"` },
+  { icon: '✉️', msg: (n) => `<strong>${n}</strong> t'a envoyé un message` },
+  { icon: '👤', msg: (n) => `<strong>${n}</strong> a commencé à te suivre` },
+  { icon: '🔖', msg: (n) => `<strong>${n}</strong> a enregistré ta publication` },
+  { icon: '📤', msg: (n) => `<strong>${n}</strong> a partagé ton post en story` },
+  { icon: '🎯', msg: () => `Bloomgram : <strong>shoutout planifié</strong> sur @cafe.daily.paris (84K)` },
+  { icon: '📧', msg: () => `Bloomgram : ton profil dans <strong>Newsletter Lifestyle Daily</strong> (220K)` },
+];
+const fakeUsernames = ['emma_loves','julien.g','clemence_p','antho.life','manon.b','léa.dior','noé_paris','marin.e','iliana.z','théo.dum','camille__c','axel.r','jade_m','arthur.b','salomé.k'];
+const notifs = document.getElementById('notifs');
+
+function spawnNotif() {
+  const type = notifTypes[Math.floor(Math.random() * notifTypes.length)];
+  const user = '@' + fakeUsernames[Math.floor(Math.random() * fakeUsernames.length)];
+  const isBloomgram = type.icon === '🎯' || type.icon === '📧';
+  const div = document.createElement('div');
+  div.className = 'notif';
+  div.innerHTML = `
+    <div class="notif-icon">${type.icon}</div>
+    <div class="notif-text">${type.msg(user)}</div>
+    <div class="notif-time">à l'instant</div>
+  `;
+  if (isBloomgram) div.style.borderLeft = '4px solid #7c3aed';
+  notifs.appendChild(div);
+  setTimeout(() => div.remove(), 4500);
+}
+
+// First notif quick, then every 2-4 sec
+setTimeout(spawnNotif, 1500);
+setInterval(() => {
+  if (notifs.children.length < 3) spawnNotif();
+}, 2200 + Math.random() * 1800);
+
+// ============= ACTIVITY FEED (right panel) =============
+const activityTemplates = [
+  () => `<strong>Bloomgram a planifié</strong> un shoutout @lifestyle.fr (52K) à 18h`,
+  () => `<strong>Newsletter Slow Living</strong> (340K) inclura ton post mardi`,
+  () => `<strong>+${Math.floor(Math.random()*15+5)} nouveaux followers</strong> qualifiés détectés`,
+  () => `Hashtag <strong>#slowliving</strong> en tendance — +${Math.floor(Math.random()*50+20)} vues`,
+  () => `<strong>Engagement +${(Math.random()*4+2).toFixed(1)}%</strong> sur ton dernier reel`,
+  () => `Profil consulté <strong>${Math.floor(Math.random()*30+10)}× par /h</strong>`,
+];
+const activityFeed = document.getElementById('activityFeed');
+function pushActivity() {
+  const tpl = activityTemplates[Math.floor(Math.random() * activityTemplates.length)];
+  const item = document.createElement('div');
+  item.className = 'activity-item';
+  item.innerHTML = `<div class="dot"></div><div>${tpl()}</div>`;
+  activityFeed.insertBefore(item, activityFeed.firstChild);
+  while (activityFeed.children.length > 5) activityFeed.removeChild(activityFeed.lastChild);
+}
+for (let i = 0; i < 4; i++) pushActivity();
+setInterval(pushActivity, 4500);
+
+// Reset hourly counters every minute (visual reset)
+setInterval(() => {
+  Object.values(sideCounters).forEach(c => { c.recent = 0; });
+}, 60000);
+</script>
+</body>
+</html>
