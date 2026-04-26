@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preuves de croissance — Bloomgram</title>
+<meta name="description" content="Démos animées de la croissance Instagram avec Bloomgram : compteurs followers, graphiques, simulations 30 jours.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* ===== INSTAGRAM PROFILE MOCKUP ===== */
+.ig-card{
+  background:#fff;border-radius:20px;border:1px solid var(--border);
+  box-shadow:0 16px 50px rgba(20,10,80,.08);
+  padding:24px;display:flex;flex-direction:column;gap:18px;
+  position:relative;overflow:hidden;
+}
+.ig-card::before{
+  content:"";position:absolute;top:0;right:0;width:120px;height:120px;
+  background:radial-gradient(circle,rgba(124,58,237,.08),transparent 70%);
+  pointer-events:none;
+}
+.ig-header{display:flex;align-items:center;gap:14px}
+.ig-avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+  padding:3px;flex-shrink:0;
+}
+.ig-avatar img{width:100%;height:100%;border-radius:50%;background:#fff;display:block}
+.ig-handle{font-weight:700;font-size:15px}
+.ig-handle .verified{color:#0095f6;margin-left:4px}
+.ig-bio{font-size:13px;color:var(--muted);line-height:1.4}
+.ig-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ig-stat-num{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.ig-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.ig-stat-num.animating{color:var(--primary);transition:color .15s}
+
+/* Mini follower counter live ticker */
+.live-counter{
+  display:inline-flex;align-items:center;gap:8px;background:#10b981;color:#fff;
+  padding:5px 12px;border-radius:99px;font-size:12px;font-weight:700;
+  animation:pulse 2s ease-in-out infinite;
+}
+.live-counter::before{content:"●";color:#fff}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* SVG chart */
+.ig-chart{height:120px;width:100%}
+.ig-chart .grow-line{
+  stroke-dasharray:1000;stroke-dashoffset:1000;
+  animation:draw 4s ease-out forwards;
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+.ig-chart .grow-area{
+  opacity:0;animation:fade 4s ease-out 1s forwards;
+}
+@keyframes fade{to{opacity:1}}
+
+/* Day badge animations */
+.day-badges{display:flex;gap:6px;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px}
+
+/* Big animated counter */
+.big-counter-section{
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:#fff;border-radius:24px;padding:60px 40px;text-align:center;
+  margin:40px auto;max-width:1100px;position:relative;overflow:hidden;
+}
+.big-counter-section::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 50%,rgba(255,255,255,.15),transparent 50%);
+}
+.big-counter{
+  font-size:88px;font-weight:900;letter-spacing:-3px;
+  font-variant-numeric:tabular-nums;line-height:1;margin:18px 0;
+  text-shadow:0 4px 20px rgba(0,0,0,.2);
+}
+.big-counter-label{font-size:14px;text-transform:uppercase;letter-spacing:2px;opacity:.85;font-weight:700}
+
+/* Day timeline animation */
+.timeline{
+  display:grid;grid-template-columns:repeat(30,1fr);gap:2px;
+  margin-top:20px;
+}
+.timeline-day{
+  height:40px;background:rgba(255,255,255,.15);border-radius:2px;
+  animation:growBar 4s ease-out forwards;transform-origin:bottom;
+  transform:scaleY(0);
+}
+@keyframes growBar{to{transform:scaleY(1)}}
+
+/* Disclaimer */
+.disclaimer{
+  background:#fef3c7;border:1px solid #f59e0b;border-radius:12px;
+  padding:16px 20px;margin:24px auto;max-width:880px;
+  font-size:13px;color:#92670a;text-align:center;
+}
+.disclaimer strong{display:block;margin-bottom:4px;font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="promo">
+  <strong>OFFRE FONDATEUR · -50%</strong> sur les plans annuels
+  <span class="countdown" id="countdown"><span id="hh">21</span>H <span id="mm">35</span>MIN <span id="ss">06</span>SEC</span>
+  <button class="close" onclick="this.parentElement.style.display='none'">×</button>
+</div>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav">
+      <a href="pricing.html">Plans</a>
+      <a href="case-studies.html">Résultats</a>
+      <a href="reviews.html">Témoignages</a>
+      <a href="proof.html" style="color:var(--primary)">Preuves live</a>
+      <a href="login.html">Connexion</a>
+      <a href="signup.html" class="btn btn-primary">Démarrer</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:60px 0">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px">
+      <span style="display:inline-block;background:var(--primary);color:#fff;padding:6px 16px;border-radius:99px;font-size:12px;font-weight:700;margin-bottom:18px;letter-spacing:.5px">📊 SIMULATION TEMPS RÉEL</span>
+      <h1 style="font-size:52px;font-weight:800;letter-spacing:-1.5px;margin:0 0 18px;line-height:1.1">
+        Voyez la <span style="background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">croissance</span> en direct
+      </h1>
+      <p style="font-size:19px;color:var(--muted);max-width:600px;margin:0 auto">
+        3 comptes simulés montrant l'évolution typique sur 30 jours avec Bloomgram. Animations basées sur nos benchmarks réels.
+      </p>
+    </div>
+
+    <!-- BIG ANIMATED COUNTER -->
+    <div class="big-counter-section">
+      <div class="big-counter-label">Abonnés gagnés ce mois (toute la plateforme)</div>
+      <div class="big-counter" id="bigCounter">0</div>
+      <div style="opacity:.85;font-size:16px">+<span id="todayDelta">0</span> dans les dernières 24h</div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <!-- 3 IG PROFILE CARDS WITH ANIMATIONS -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:60px">
+
+      <!-- CARD 1 — FOOD -->
+      <div class="ig-card" data-niche="food">
+        <span class="live-counter" style="position:absolute;top:18px;right:18px">LIVE</span>
+        <div class="ig-header">
+          <div class="ig-avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=lina&backgroundColor=ffd5dc,d1d4f9&hair=longHairBigHair,longHairBob"></div>
+          <div>
+            <div class="ig-handle">@lina.fork <span class="verified">✓</span></div>
+            <div style="font-size:12px;color:var(--muted)">Coach nutrition · 🍽 Recettes simples</div>
+          </div>
+        </div>
+        <div class="ig-stats">
+          <div><div class="ig-stat-num" data-from="9420" data-to="47200">9 420</div><div class="ig-stat-label">Followers</div></div>
+          <div><div class="ig-stat-num" data-from="582" data-to="612">582</div><div class="ig-stat-label">Posts</div></div>
+          <div><div class="ig-stat-num" data-from="3.2" data-to="11.4" data-suffix="%" data-decimal="1">3,2%</div><div class="ig-stat-label">Engagement</div></div>
+        </div>
+        <svg class="ig-chart" viewBox="0 0 320 120">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#7c3aed" stop-opacity=".3"/>
+              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="grow-area" d="M0,100 L40,95 L80,88 L120,75 L160,58 L200,42 L240,28 L280,18 L320,8 L320,120 L0,120 Z" fill="url(#g1)"/>
+          <path class="grow-line" d="M0,100 L40,95 L80,88 L120,75 L160,58 L200,42 L240,28 L280,18 L320,8" fill="none" stroke="#7c3aed" stroke-width="3"/>
+        </svg>
+        <div class="day-badges"><span>J-30</span><span>J-15</span><span>Aujourd'hui</span></div>
+        <div style="background:#f0fdf4;color:#166534;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-align:center">
+          ⬆️ +37 780 followers en 9 mois
+        </div>
+      </div>
+
+      <!-- CARD 2 — STUDIO -->
+      <div class="ig-card" data-niche="studio">
+        <span class="live-counter" style="position:absolute;top:18px;right:18px">LIVE</span>
+        <div class="ig-header">
+          <div class="ig-avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=studioolive&backgroundColor=c0aede&hair=shortHairShortFlat,longHairCurly"></div>
+          <div>
+            <div class="ig-handle">@studio.olive <span class="verified">✓</span></div>
+            <div style="font-size:12px;color:var(--muted)">Céramique artisanale · Lyon</div>
+          </div>
+        </div>
+        <div class="ig-stats">
+          <div><div class="ig-stat-num" data-from="16400" data-to="142800">16 400</div><div class="ig-stat-label">Followers</div></div>
+          <div><div class="ig-stat-num" data-from="234" data-to="298">234</div><div class="ig-stat-label">Posts</div></div>
+          <div><div class="ig-stat-num" data-from="4.1" data-to="11.8" data-suffix="%" data-decimal="1">4,1%</div><div class="ig-stat-label">Engagement</div></div>
+        </div>
+        <svg class="ig-chart" viewBox="0 0 320 120">
+          <defs>
+            <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#7c3aed" stop-opacity=".3"/>
+              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="grow-area" d="M0,108 L40,100 L80,90 L120,72 L160,55 L200,38 L240,22 L280,12 L320,4 L320,120 L0,120 Z" fill="url(#g2)"/>
+          <path class="grow-line" d="M0,108 L40,100 L80,90 L120,72 L160,55 L200,38 L240,22 L280,12 L320,4" fill="none" stroke="#7c3aed" stroke-width="3"/>
+        </svg>
+        <div class="day-badges"><span>J-30</span><span>J-15</span><span>Aujourd'hui</span></div>
+        <div style="background:#f0fdf4;color:#166534;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-align:center">
+          🚀 +126K followers en 14 mois — CA ×6
+        </div>
+      </div>
+
+      <!-- CARD 3 — ELSA -->
+      <div class="ig-card" data-niche="elsa">
+        <span class="live-counter" style="position:absolute;top:18px;right:18px">LIVE</span>
+        <div class="ig-header">
+          <div class="ig-avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=elsaflow&backgroundColor=b6e3f4&hair=longHairCurvy,longHairBigHair"></div>
+          <div>
+            <div class="ig-handle">@elsa.flow</div>
+            <div style="font-size:12px;color:var(--muted)">Coach yoga · Bordeaux 🧘</div>
+          </div>
+        </div>
+        <div class="ig-stats">
+          <div><div class="ig-stat-num" data-from="3400" data-to="24800">3 400</div><div class="ig-stat-label">Followers</div></div>
+          <div><div class="ig-stat-num" data-from="156" data-to="201">156</div><div class="ig-stat-label">Posts</div></div>
+          <div><div class="ig-stat-num" data-from="5.1" data-to="9.8" data-suffix="%" data-decimal="1">5,1%</div><div class="ig-stat-label">Engagement</div></div>
+        </div>
+        <svg class="ig-chart" viewBox="0 0 320 120">
+          <defs>
+            <linearGradient id="g3" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#7c3aed" stop-opacity=".3"/>
+              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="grow-area" d="M0,105 L40,98 L80,85 L120,68 L160,52 L200,35 L240,22 L280,15 L320,10 L320,120 L0,120 Z" fill="url(#g3)"/>
+          <path class="grow-line" d="M0,105 L40,98 L80,85 L120,68 L160,52 L200,35 L240,22 L280,15 L320,10" fill="none" stroke="#7c3aed" stroke-width="3"/>
+        </svg>
+        <div class="day-badges"><span>J-30</span><span>J-15</span><span>Aujourd'hui</span></div>
+        <div style="background:#f0fdf4;color:#166534;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;text-align:center">
+          💼 ROI ×4 en 2 mois (prospects qualifiés)
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DAILY TICKER -->
+    <div style="margin:60px auto;max-width:880px;background:#0f0a25;color:#fff;border-radius:20px;padding:32px;font-family:monospace">
+      <div style="font-size:13px;color:#06b6d4;margin-bottom:14px;letter-spacing:1px">📡 ACTIVITÉ LIVE — DERNIÈRES 24H</div>
+      <div id="ticker" style="font-size:14px;line-height:1.8"></div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+      <strong>⚖️ Avertissement transparence</strong>
+      Les comptes affichés sont des <strong>simulations illustratives</strong> basées sur les fourchettes de croissance moyennes de nos clients réels. Les résultats varient selon votre niche, contenu et engagement. Aucune garantie n'est donnée sur des chiffres spécifiques.
+    </div>
+
+    <div style="text-align:center;margin-top:40px">
+      <a href="signup.html" class="btn btn-primary" style="font-size:16px;padding:16px 32px">🚀 Tester avec mon compte</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div><div class="logo" style="color:#fff;margin-bottom:14px"><span class="mark">B</span> Bloomgram</div></div>
+      <div><h4>Produit</h4><a href="pricing.html">Plans</a><a href="proof.html">Preuves</a></div>
+      <div><h4>Société</h4><a href="#">Contact</a></div>
+      <div><h4>Légal</h4><a href="#">CGU</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Bloomgram</span><span>Non affilié Instagram™</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+// ===== ANIMATE FOLLOWER COUNTERS =====
+function animateNum(el, from, to, duration = 4000, decimal = 0, suffix = '') {
+  const start = performance.now();
+  const fromN = parseFloat(from);
+  const toN = parseFloat(to);
+  function frame(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    const val = fromN + (toN - fromN) * eased;
+    el.textContent = (decimal > 0 ? val.toFixed(decimal) : Math.round(val).toLocaleString('fr')).replace('.', ',') + suffix;
+    if (t < 1) requestAnimationFrame(frame);
+    else el.classList.remove('animating');
+  }
+  el.classList.add('animating');
+  requestAnimationFrame(frame);
+}
+
+// Trigger animations when card is visible
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.ig-stat-num[data-from]').forEach(el => {
+        const from = el.dataset.from;
+        const to = el.dataset.to;
+        const decimal = parseInt(el.dataset.decimal || '0');
+        const suffix = el.dataset.suffix || '';
+        animateNum(el, from, to, 4000, decimal, suffix);
+      });
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.ig-card').forEach(c => observer.observe(c));
+
+// ===== BIG COUNTER (platform-wide, ticking up) =====
+const bigCounterEl = document.getElementById('bigCounter');
+const todayDeltaEl = document.getElementById('todayDelta');
+let bigCount = 2_847_500;
+let todayDelta = 8240;
+function tickBig() {
+  bigCount += Math.floor(Math.random() * 3) + 1;
+  todayDelta += Math.floor(Math.random() * 3) + 1;
+  bigCounterEl.textContent = bigCount.toLocaleString('fr');
+  todayDeltaEl.textContent = todayDelta.toLocaleString('fr');
+}
+const bigObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    animateNum(bigCounterEl, 0, bigCount, 3500);
+    setTimeout(() => setInterval(tickBig, 600), 3500);
+    bigObs.disconnect();
+  }
+}, { threshold: 0.3 });
+bigObs.observe(bigCounterEl);
+
+// Timeline bars (30 days)
+const timeline = document.getElementById('timeline');
+for (let i = 0; i < 30; i++) {
+  const bar = document.createElement('div');
+  bar.className = 'timeline-day';
+  const h = 25 + (i / 30) * 75 + Math.random() * 15;
+  bar.style.height = `${h}%`;
+  bar.style.animationDelay = `${i * 60}ms`;
+  timeline.appendChild(bar);
+}
+
+// ===== ACTIVITY TICKER (last 24h, fake) =====
+const tickerData = [
+  ['+148', '@studio.olive', 'mise en avant @decoinspoFR (87K)'],
+  ['+92',  '@lina.fork',    'newsletter Slow Living Weekly (340K)'],
+  ['+76',  '@noor.vista',   'top hashtag #ceramicart'],
+  ['+103', '@elsa.flow',    'shoutout @yoga.fr (52K)'],
+  ['+58',  '@maison.kero',  'newsletter Maison & Co (180K)'],
+  ['+187', '@theo.mavros',  'feature @musicforge (124K)'],
+  ['+44',  '@hana.soleil',  'top hashtag #ethicalbeauty'],
+  ['+221', '@noir.atelier', 'newsletter Design Daily (290K)'],
+  ['+67',  '@cuir.mercier', 'shoutout @french.crafts (38K)'],
+];
+const tickerEl = document.getElementById('ticker');
+let tickerIdx = 0;
+function addTickerLine() {
+  const [delta, handle, source] = tickerData[tickerIdx % tickerData.length];
+  const time = new Date(Date.now() - Math.random() * 86400000)
+    .toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' });
+  const line = document.createElement('div');
+  line.style.opacity = '0';
+  line.style.transition = 'opacity .5s';
+  line.innerHTML = `<span style="color:#06b6d4">${time}</span> · <span style="color:#10b981;font-weight:700">${delta}</span> abonnés · <span style="color:#fff">${handle}</span> <span style="color:#888">${source}</span>`;
+  tickerEl.insertBefore(line, tickerEl.firstChild);
+  setTimeout(() => line.style.opacity = '1', 50);
+  while (tickerEl.children.length > 6) tickerEl.removeChild(tickerEl.lastChild);
+  tickerIdx++;
+}
+for (let i = 0; i < 5; i++) addTickerLine();
+setInterval(addTickerLine, 3500);
+</script>
+</body>
+</html>
