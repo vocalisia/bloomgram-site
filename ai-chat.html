@@ -184,7 +184,7 @@
     <!-- LIVE DM DEMO -->
     <div class="dm-card" id="demo">
       <div class="dm-header">
-        <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=sophie&backgroundColor=ffd5dc">
+        <img src="https://i.pravatar.cc/300?img=47
         <div>
           <strong>sophie.vibes</strong>
           <span class="live">IA active · répond en 2-5 sec</span>
@@ -266,7 +266,7 @@
     </div>
     <div class="dm-card">
       <div class="dm-header">
-        <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=marie">
+        <img src="https://i.pravatar.cc/200?img=23">
         <div><strong>@marie_d22</strong><span class="live">DM entrant</span></div>
       </div>
       <div class="dm-msgs">
@@ -300,28 +300,28 @@
         <strong>sophie.vibes</strong> ✨ Routine matinale qui change la vie. Commente <strong style="color:#feda75">ROUTINE</strong> pour le PDF complet 💌
       </div>
       <div class="comment-row">
-        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=jess')"></div>
+        <div class="comment-avatar" style="background-image:url('https://i.pravatar.cc/200?img=10')"></div>
         <div style="flex:1">
           <div><strong>@jessica.peel</strong> <span class="time">2h</span></div>
           <div>ROUTINE</div>
         </div>
       </div>
       <div class="comment-row" style="background:rgba(124,58,237,.12);border-radius:8px;padding:8px;margin-top:6px;border-top:0">
-        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=sophie')"></div>
+        <div class="comment-avatar" style="background-image:url('https://i.pravatar.cc/300?img=47')"></div>
         <div style="flex:1">
           <div><strong>sophie.vibes</strong> <span class="auto">🤖 IA AUTO</span> <span class="time">à l'instant</span></div>
           <div>@jessica.peel je viens de t'envoyer le PDF en DM 💜 Vérifie tes messages !</div>
         </div>
       </div>
       <div class="comment-row">
-        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=mia')"></div>
+        <div class="comment-avatar" style="background-image:url('https://i.pravatar.cc/200?img=49')"></div>
         <div style="flex:1">
           <div><strong>@mia.sullivan</strong> <span class="time">2h</span></div>
           <div>literally my fav creator!! 💕</div>
         </div>
       </div>
       <div class="comment-row" style="background:rgba(124,58,237,.12);border-radius:8px;padding:8px;margin-top:6px;border-top:0">
-        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=sophie')"></div>
+        <div class="comment-avatar" style="background-image:url('https://i.pravatar.cc/300?img=47')"></div>
         <div style="flex:1">
           <div><strong>sophie.vibes</strong> <span class="auto">🤖 IA AUTO</span> <span class="time">à l'instant</span></div>
           <div>@mia.sullivan tu vas me faire pleurer 😭💕 merci pour ton soutien !!</div>
@@ -480,7 +480,7 @@ function nextDmStep() {
     msg.className = `dm-msg ${step.side} ${step.bot ? 'bot' : ''}`;
     const avatarSeed = step.side === 'them' ? 'marie' : 'sophie';
     msg.innerHTML = `
-      <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=${avatarSeed}">
+      <img src="${avatarSeed === "marie" ? "https://i.pravatar.cc/100?img=23" : "https://i.pravatar.cc/100?img=47"}">
       <div class="dm-bubble">${step.text}</div>
     `;
     dmMsgs.appendChild(msg);
