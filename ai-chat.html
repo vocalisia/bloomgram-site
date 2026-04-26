@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bloomgram AI — Auto-DM, auto-commentaires, capture email</title>
+<meta name="description" content="L'IA qui répond aux DMs et commentaires Instagram à ta place 24/7. Capture les emails, déclenche les ventes, ne rate aucun message.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.hero-ai{
+  background:linear-gradient(135deg,#0f0a25 0%,#1a0f3d 50%,#7c3aed 100%);
+  color:#fff;padding:80px 0 60px;position:relative;overflow:hidden;
+}
+.hero-ai .badge{
+  display:inline-block;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.2);padding:6px 14px;border-radius:99px;
+  font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:18px;
+}
+.hero-ai h1{font-size:60px;font-weight:800;letter-spacing:-2px;margin:0 0 18px;line-height:1.05}
+.hero-ai h1 em{background:linear-gradient(90deg,#feda75,#d62976);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
+.hero-ai p.lead{font-size:19px;opacity:.9;max-width:560px;margin:0 0 30px}
+
+/* DM mockup */
+.dm-card{
+  background:#000;border-radius:24px;padding:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.1);
+  max-width:380px;margin:0 auto;
+}
+.dm-header{display:flex;align-items:center;gap:10px;padding:6px 0 14px;border-bottom:1px solid #222}
+.dm-header img{width:36px;height:36px;border-radius:50%;background:#7c3aed}
+.dm-header strong{color:#fff;font-size:14px;display:block}
+.dm-header .live{font-size:11px;color:#10b981;font-weight:600}
+.dm-header .live::before{content:"●";margin-right:4px}
+.dm-msgs{padding:14px 0;display:flex;flex-direction:column;gap:8px;min-height:200px}
+.dm-msg{
+  display:flex;align-items:flex-start;gap:8px;animation:msgIn .4s cubic-bezier(.2,1.4,.4,1);
+  font-size:14px;line-height:1.4;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}}
+.dm-msg.them{align-self:flex-start;max-width:80%}
+.dm-msg.you{align-self:flex-end;flex-direction:row-reverse;max-width:80%}
+.dm-msg img{width:24px;height:24px;border-radius:50%;background:#444;flex-shrink:0}
+.dm-bubble{
+  padding:9px 14px;border-radius:18px;color:#fff;
+}
+.them .dm-bubble{background:#262626}
+.you .dm-bubble{background:linear-gradient(135deg,#7c3aed,#d62976)}
+.dm-msg.bot .dm-bubble::before{content:"🤖 IA · ";font-size:11px;opacity:.7;display:block}
+.dm-typing{
+  align-self:flex-start;background:#262626;border-radius:18px;padding:10px 14px;
+  display:flex;gap:4px;
+}
+.dm-typing span{
+  width:6px;height:6px;background:#888;border-radius:50%;
+  animation:typing 1.2s infinite ease-in-out;
+}
+.dm-typing span:nth-child(2){animation-delay:.2s}
+.dm-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.dm-cta-btn{
+  background:linear-gradient(135deg,#7c3aed,#d62976);color:#fff;border:0;
+  padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;
+  margin-top:6px;font-family:inherit;
+}
+
+/* Feature cards */
+.features{padding:80px 0;background:var(--bg-soft)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:40px}
+.feature{
+  background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;
+  transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;
+}
+.feature:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.feature .icon{font-size:36px;margin-bottom:14px;display:inline-block}
+.feature h3{margin:0 0 10px;font-size:19px;font-weight:800}
+.feature p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.feature .tag{
+  position:absolute;top:18px;right:18px;background:#fef3c7;color:#92670a;
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.5px;
+}
+
+/* Use cases mini-mockups */
+.usecase{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  margin:60px 0;padding:48px;background:#fff;border-radius:24px;border:1px solid var(--border);
+  box-shadow:0 16px 50px rgba(20,10,80,.06);
+}
+.usecase.reverse{direction:rtl}
+.usecase.reverse > *{direction:ltr}
+.usecase h2{font-size:32px;font-weight:800;margin:0 0 14px;letter-spacing:-1px}
+.usecase p{color:var(--muted);line-height:1.6;font-size:15px}
+.usecase ul{padding:0;list-style:none;margin:18px 0}
+.usecase li{padding:7px 0;display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.usecase li::before{content:"✓";color:var(--green);font-weight:900;flex-shrink:0}
+
+/* Comment auto-reply mockup */
+.comment-card{
+  background:#000;border-radius:18px;padding:16px;color:#fff;font-size:14px;
+}
+.comment-img{
+  width:100%;aspect-ratio:1.5;background:linear-gradient(135deg,#feda75,#d62976);
+  border-radius:12px;margin-bottom:12px;display:grid;place-items:center;font-size:56px;
+}
+.comment-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid #1a1a1a}
+.comment-avatar{width:30px;height:30px;border-radius:50%;background:#444;flex-shrink:0;background-size:cover}
+.comment-row strong{font-weight:700}
+.comment-row .time{color:#666;font-size:11px;margin-left:6px}
+.comment-row .auto{
+  display:inline-block;background:#7c3aed;color:#fff;font-size:10px;font-weight:700;
+  padding:2px 6px;border-radius:4px;margin-left:6px;
+}
+
+/* Email capture */
+.email-capture-mockup{
+  background:linear-gradient(135deg,#7c3aed,#d62976);border-radius:18px;padding:20px;color:#fff;
+}
+.email-capture-mockup .ec-msg{margin-bottom:14px;font-size:14px;line-height:1.5}
+.email-capture-mockup input{
+  width:100%;padding:12px;border-radius:8px;border:0;font-size:14px;
+  font-family:inherit;color:#1a0f3d;
+}
+.email-capture-mockup button{
+  width:100%;padding:12px;background:#fff;color:#7c3aed;border:0;border-radius:8px;
+  font-weight:700;margin-top:8px;cursor:pointer;font-family:inherit;
+}
+
+/* Flow builder mockup */
+.flow-mockup{
+  background:#0f0a25;border-radius:18px;padding:24px;color:#fff;
+  font-family:'SF Mono',monospace;font-size:13px;
+}
+.flow-step{
+  display:flex;gap:12px;align-items:center;padding:12px;
+  background:rgba(255,255,255,.05);border-radius:10px;margin-bottom:10px;
+  border-left:3px solid #7c3aed;
+}
+.flow-step .num{
+  width:24px;height:24px;border-radius:50%;background:#7c3aed;
+  display:grid;place-items:center;font-weight:700;flex-shrink:0;
+}
+.flow-arrow{text-align:center;color:#666;margin:6px 0}
+.flow-mockup .typing-cursor::after{content:"|";animation:blink 1s infinite}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+@media(max-width:900px){
+  .usecase{grid-template-columns:1fr;padding:28px}
+  .hero-ai h1{font-size:38px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav">
+      <a href="pricing.html">Plans</a>
+      <a href="ai-chat.html" style="color:var(--primary);font-weight:700">🤖 IA Chat</a>
+      <a href="ig-mockup.html">📱 Démo</a>
+      <a href="comparison.html">📊 Avant/Après</a>
+      <a href="login.html">Connexion</a>
+      <a href="signup.html" class="btn btn-primary">Démarrer</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-ai">
+  <div class="container" style="display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;max-width:1180px">
+    <div>
+      <span class="badge">🤖 BLOOMGRAM AI · Disponible Bloom & Forest</span>
+      <h1>L'IA qui répond à tes <em>DMs et commentaires</em> 24/7</h1>
+      <p class="lead">Réponds à chaque message dans la fenêtre de 24h Meta. Capture les emails. Convertis les fans en clients. <strong>Sans rester scotché à ton téléphone.</strong></p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="signup.html" class="btn btn-primary" style="background:#fff;color:#7c3aed">Démarrer gratuit 7j</a>
+        <a href="#demo" class="btn btn-outline" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.3)">Voir la démo →</a>
+      </div>
+      <div style="margin-top:32px;font-size:13px;opacity:.85">
+        ✓ Apprend ton ton de voix · ✓ 30+ langues · ✓ Tu valides chaque réponse (option)
+      </div>
+    </div>
+
+    <!-- LIVE DM DEMO -->
+    <div class="dm-card" id="demo">
+      <div class="dm-header">
+        <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=sophie&backgroundColor=ffd5dc">
+        <div>
+          <strong>sophie.vibes</strong>
+          <span class="live">IA active · répond en 2-5 sec</span>
+        </div>
+      </div>
+      <div class="dm-msgs" id="dmMsgs">
+        <!-- Messages animés JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES GRID -->
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">L'arsenal IA Bloomgram</h2>
+    <p class="section-sub">7 outils qui automatisent ta présence Instagram sans perdre ta personnalité.</p>
+
+    <div class="features-grid">
+      <div class="feature">
+        <span class="tag">⭐ POPULAIRE</span>
+        <span class="icon">💬</span>
+        <h3>AI Replies (DM)</h3>
+        <p>Réponds à chaque DM en 2-5 secondes. L'IA apprend ton vocabulaire, tes emojis, ton rythme. Tu peux valider chaque réponse avant envoi.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">📝</span>
+        <h3>AI Comments</h3>
+        <p>Catch chaque compliment avant que la fenêtre de 24h Meta se ferme. Convertis les fans en clients via réponses contextuelles personnalisées.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">📧</span>
+        <h3>Email Capture auto</h3>
+        <p>"Commente CADEAU pour recevoir le PDF" → DM auto + capture email + ajout liste Brevo/Mailchimp. Zéro friction.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">🎯</span>
+        <h3>AI Goals</h3>
+        <p>Définis l'objectif (vente / inscription / réservation), l'IA guide naturellement la conversation pour y arriver.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">🧠</span>
+        <h3>Intent Recognition</h3>
+        <p>Comprend l'intention (pas juste les mots-clés). "hw mch is it ?" = question prix → réponse adaptée auto.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">⚡</span>
+        <h3>Flow Builder Assistant</h3>
+        <p>Décris ton besoin en français, l'IA génère le flow complet en 5 sec. Drag & drop pour ajuster.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">✨</span>
+        <h3>Text Improver</h3>
+        <p>"Améliore ce message", "Rends-le plus exclusif", "Plus simple"... 4 variantes générées en 1 clic.</p>
+      </div>
+      <div class="feature">
+        <span class="icon">🔄</span>
+        <h3>Follow-to-DM</h3>
+        <p>Quand quelqu'un te suit, IA envoie un DM personnalisé d'accueil avec ton lien magic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASE 1 — DM AUTO -->
+<section class="container">
+  <div class="usecase">
+    <div>
+      <span style="background:#7c3aed;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px">CAS D'USAGE 1</span>
+      <h2>Réponds à chaque DM en 2 secondes</h2>
+      <p>Plus de 60% des prospects abandonnent si tu ne réponds pas dans l'heure. L'IA Bloomgram comprend l'intention et répond avec ton ton, en français, 24/7.</p>
+      <ul>
+        <li>Apprend ton vocabulaire et tes emojis (250k caractères de contexte)</li>
+        <li>Reconnaît l'intention même avec fautes/argot/abréviations</li>
+        <li>Tu valides chaque réponse (mode review) ou auto-envoi (mode pilot)</li>
+        <li>Escalade vers humain si situation complexe détectée</li>
+      </ul>
+      <a href="signup.html" class="btn btn-primary">Activer AI Replies</a>
+    </div>
+    <div class="dm-card">
+      <div class="dm-header">
+        <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=marie">
+        <div><strong>@marie_d22</strong><span class="live">DM entrant</span></div>
+      </div>
+      <div class="dm-msgs">
+        <div class="dm-msg them"><div class="dm-bubble">Salut ! La formation dure cb de tps ?</div></div>
+        <div class="dm-msg you bot"><div class="dm-bubble">8 semaines 🎯 vidéos + worksheets + accès à vie. Tu veux que je te bloque ta place ?</div></div>
+        <div class="dm-msg them"><div class="dm-bubble">oui carrément 🙌</div></div>
+        <div class="dm-msg you bot"><div class="dm-bubble">Top ! Ton email pour t'envoyer le lien d'inscription ?</div></div>
+        <div class="dm-msg them"><div class="dm-bubble">marie.d@gmail.com</div></div>
+        <div class="dm-msg you bot"><div class="dm-bubble">Envoyé ✨ Vérifie tes spams si pas reçu dans 5 min ! Bienvenue dans l'aventure 💜</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASE 2 — COMMENT AUTO -->
+  <div class="usecase reverse">
+    <div>
+      <span style="background:#10b981;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px">CAS D'USAGE 2</span>
+      <h2>Convertis chaque commentaire en client</h2>
+      <p>Tes posts génèrent 200 commentaires ? L'IA répond personnellement à chacun, redirige vers DM/produit/email. Plus aucun fan ignoré.</p>
+      <ul>
+        <li>Détection automatique des questions vs félicitations vs trolls</li>
+        <li>Réponses contextuelles (apprend ton style depuis tes anciennes réponses)</li>
+        <li>Trigger personnalisé : "Commente PRIX" → DM auto avec offre</li>
+        <li>Anti-spam intelligent (filtre comptes bots et insultes)</li>
+      </ul>
+      <a href="signup.html" class="btn btn-primary">Activer AI Comments</a>
+    </div>
+    <div class="comment-card">
+      <div class="comment-img">📸</div>
+      <div style="padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:13px">
+        <strong>sophie.vibes</strong> ✨ Routine matinale qui change la vie. Commente <strong style="color:#feda75">ROUTINE</strong> pour le PDF complet 💌
+      </div>
+      <div class="comment-row">
+        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=jess')"></div>
+        <div style="flex:1">
+          <div><strong>@jessica.peel</strong> <span class="time">2h</span></div>
+          <div>ROUTINE</div>
+        </div>
+      </div>
+      <div class="comment-row" style="background:rgba(124,58,237,.12);border-radius:8px;padding:8px;margin-top:6px;border-top:0">
+        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=sophie')"></div>
+        <div style="flex:1">
+          <div><strong>sophie.vibes</strong> <span class="auto">🤖 IA AUTO</span> <span class="time">à l'instant</span></div>
+          <div>@jessica.peel je viens de t'envoyer le PDF en DM 💜 Vérifie tes messages !</div>
+        </div>
+      </div>
+      <div class="comment-row">
+        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=mia')"></div>
+        <div style="flex:1">
+          <div><strong>@mia.sullivan</strong> <span class="time">2h</span></div>
+          <div>literally my fav creator!! 💕</div>
+        </div>
+      </div>
+      <div class="comment-row" style="background:rgba(124,58,237,.12);border-radius:8px;padding:8px;margin-top:6px;border-top:0">
+        <div class="comment-avatar" style="background-image:url('https://api.dicebear.com/7.x/lorelei/svg?seed=sophie')"></div>
+        <div style="flex:1">
+          <div><strong>sophie.vibes</strong> <span class="auto">🤖 IA AUTO</span> <span class="time">à l'instant</span></div>
+          <div>@mia.sullivan tu vas me faire pleurer 😭💕 merci pour ton soutien !!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASE 3 — EMAIL CAPTURE -->
+  <div class="usecase">
+    <div>
+      <span style="background:#f59e0b;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px">CAS D'USAGE 3</span>
+      <h2>Construis ta liste email sans landing page</h2>
+      <p>Transforme ton trafic Instagram en abonnés newsletter directement depuis les DMs. Sync auto avec Brevo, Mailchimp, ConvertKit, Klaviyo.</p>
+      <ul>
+        <li>Trigger sur commentaire / DM / story reply</li>
+        <li>Validation email + double opt-in RGPD-compliant</li>
+        <li>Sync temps réel vers ton outil email préféré</li>
+        <li>Stats conversion (vue → DM → email → vente)</li>
+      </ul>
+      <a href="signup.html" class="btn btn-primary">Capturer mes 1ers emails</a>
+    </div>
+    <div class="email-capture-mockup">
+      <div class="ec-msg">
+        <strong>🤖 IA Bloomgram</strong><br>
+        Merci pour ton soutien ! Au passage, t'es abonnée à ma newsletter ? Je partage plein d'astuces là-bas :
+      </div>
+      <input type="email" placeholder="ton@email.com">
+      <button>📧 Recevoir les astuces</button>
+      <div style="font-size:11px;opacity:.85;margin-top:10px;text-align:center">RGPD ✓ · Désinscription 1 clic</div>
+    </div>
+  </div>
+
+  <!-- USE CASE 4 — FLOW BUILDER -->
+  <div class="usecase reverse">
+    <div>
+      <span style="background:#06b6d4;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px">CAS D'USAGE 4</span>
+      <h2>Crée des flows en parlant à l'IA</h2>
+      <p>"Je veux capturer des emails et vendre ma formation. Je publie des Reels et je demande un commentaire 'CADEAU' pour le PDF gratuit." → Flow généré en 5 sec.</p>
+      <ul>
+        <li>Décris ton besoin en français naturel</li>
+        <li>L'IA génère le flow complet (déclencheurs + conditions + actions)</li>
+        <li>Drag & drop pour ajuster chaque étape</li>
+        <li>A/B testing intégré (2 variantes testées en parallèle)</li>
+      </ul>
+    </div>
+    <div class="flow-mockup">
+      <div style="font-size:12px;color:#06b6d4;margin-bottom:14px">▶ FLOW GÉNÉRÉ EN 4.2s</div>
+      <div class="flow-step"><div class="num">1</div><div>👀 Détecter "CADEAU" dans commentaires</div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="num">2</div><div>💬 Auto-DM : "Je t'envoie le PDF !"</div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="num">3</div><div>📧 Demander email + double opt-in</div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="num">4</div><div>📤 Envoyer PDF (Brevo) + tag "lead"</div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="num">5</div><div>⏰ J+3 : DM offre formation -20%</div></div>
+      <div style="margin-top:14px;color:#10b981;font-size:12px"><span class="typing-cursor">▶ Flow actif · 47 conversions cette semaine </span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON BEFORE/AFTER -->
+<section style="background:#0f0a25;color:#fff;padding:80px 0">
+  <div class="container">
+    <h2 style="text-align:center;font-size:42px;font-weight:800;letter-spacing:-1px;margin:0 0 12px">Avant Bloomgram AI vs Après</h2>
+    <p style="text-align:center;color:#a0a3c0;font-size:17px;margin-bottom:48px">L'écart est mesurable.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px;margin:0 auto">
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:32px">
+        <div style="font-size:14px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:14px">❌ AVANT BLOOMGRAM</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px">
+          <li style="display:flex;gap:10px"><span>⏰</span> Tu rates 60% des DMs (fenêtre 24h dépassée)</li>
+          <li style="display:flex;gap:10px"><span>📱</span> 3-4h/jour scotché à ton téléphone</li>
+          <li style="display:flex;gap:10px"><span>💸</span> Posts qui font des likes mais 0 conversion</li>
+          <li style="display:flex;gap:10px"><span>🔄</span> Followers viennent et partent (zéro nurturing)</li>
+          <li style="display:flex;gap:10px"><span>📉</span> Liste email stagne sous 500 abonnés</li>
+        </ul>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(6,182,212,.1));border:1px solid rgba(124,58,237,.4);border-radius:20px;padding:32px">
+        <div style="font-size:14px;font-weight:700;color:#10b981;letter-spacing:1px;margin-bottom:14px">✅ AVEC BLOOMGRAM AI</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px">
+          <li style="display:flex;gap:10px"><span>⚡</span> 100% des DMs répondus en 2-5 secondes</li>
+          <li style="display:flex;gap:10px"><span>🌴</span> 30 min/jour pour valider les drafts (option)</li>
+          <li style="display:flex;gap:10px"><span>💰</span> Chaque post nourrit le funnel automatiquement</li>
+          <li style="display:flex;gap:10px"><span>🎯</span> Follow → DM auto → email → vente</li>
+          <li style="display:flex;gap:10px"><span>📈</span> +1 200 emails/mois en moyenne (clients Bloom)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:transparent;padding:80px 0">
+  <div class="cta-big">
+    <h2>L'IA travaille pendant que tu vis ta vie.</h2>
+    <p>Disponible avec les plans Bloom (34€/mo) et Forest. Activation en 90 secondes.</p>
+    <a href="pricing.html" class="btn">Voir les plans →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div><div class="logo" style="color:#fff;margin-bottom:14px"><span class="mark">B</span> Bloomgram</div></div>
+      <div><h4>Produit</h4><a href="pricing.html">Plans</a><a href="ai-chat.html">IA Chat</a><a href="ig-mockup.html">Démo</a></div>
+      <div><h4>Société</h4><a href="#">Contact</a></div>
+      <div><h4>Légal</h4><a href="#">CGU</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Bloomgram</span><span>Non affilié Instagram™</span></div>
+  </div>
+</footer>
+
+<script>
+// ============= LIVE DM TYPING DEMO =============
+const dmScript = [
+  { side: 'them', text: 'Salut ! Je peux avoir des infos sur ta formation ?', delay: 800 },
+  { side: 'typing', delay: 1200 },
+  { side: 'you', bot: true, text: 'Hey ! Bien sûr 💜 Tu cherches plutôt une formation business, marketing IG, ou vidéo ?', delay: 600 },
+  { side: 'them', text: 'Marketing IG ! Combien ça coûte ?', delay: 1500 },
+  { side: 'typing', delay: 1100 },
+  { side: 'you', bot: true, text: '297€ avec accès à vie. 8 semaines de modules + worksheets + Discord privé. Je peux te bloquer ta place ?', delay: 700 },
+  { side: 'them', text: 'oui go !', delay: 1200 },
+  { side: 'typing', delay: 900 },
+  { side: 'you', bot: true, text: 'Parfait 🎯 Ton email pour t\'envoyer le lien d\'inscription ?', delay: 600 },
+  { side: 'them', text: 'sophie.r@gmail.com', delay: 1300 },
+  { side: 'typing', delay: 1000 },
+  { side: 'you', bot: true, text: 'Envoyé ✨ Vérifie tes spams si rien dans 5 min. Bienvenue 💜', delay: 0 },
+];
+
+const dmMsgs = document.getElementById('dmMsgs');
+let scriptIdx = 0;
+let typingEl = null;
+
+function nextDmStep() {
+  if (scriptIdx >= dmScript.length) {
+    // Loop after pause
+    setTimeout(() => {
+      dmMsgs.innerHTML = '';
+      scriptIdx = 0;
+      nextDmStep();
+    }, 5000);
+    return;
+  }
+  const step = dmScript[scriptIdx];
+  if (typingEl) { typingEl.remove(); typingEl = null; }
+
+  if (step.side === 'typing') {
+    typingEl = document.createElement('div');
+    typingEl.className = 'dm-typing';
+    typingEl.innerHTML = '<span></span><span></span><span></span>';
+    dmMsgs.appendChild(typingEl);
+    dmMsgs.scrollTop = dmMsgs.scrollHeight;
+  } else {
+    const msg = document.createElement('div');
+    msg.className = `dm-msg ${step.side} ${step.bot ? 'bot' : ''}`;
+    const avatarSeed = step.side === 'them' ? 'marie' : 'sophie';
+    msg.innerHTML = `
+      <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=${avatarSeed}">
+      <div class="dm-bubble">${step.text}</div>
+    `;
+    dmMsgs.appendChild(msg);
+    dmMsgs.scrollTop = dmMsgs.scrollHeight;
+  }
+  scriptIdx++;
+  setTimeout(nextDmStep, step.delay);
+}
+
+// Start when page loaded
+setTimeout(nextDmStep, 1500);
+</script>
+</body>
+</html>

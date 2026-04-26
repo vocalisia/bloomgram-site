@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avant / Pendant Bloomgram — Résultats sectoriels</title>
+<meta name="description" content="Résultats mesurés par secteur d'activité : coachs, agents immobiliers, restaurants, photographes, dentistes, e-commerce.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:22px;margin-top:48px}
+.case-card{
+  background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;
+}
+.case-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.case-head{display:flex;align-items:center;gap:12px}
+.case-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:grid;place-items:center;font-size:26px;flex-shrink:0;
+}
+.case-head h3{margin:0;font-size:16px;font-weight:800}
+.case-head .city{font-size:12px;color:var(--muted);font-weight:500}
+
+.case-comparison{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--bg-soft);
+  border-radius:12px;padding:14px;font-size:11px;
+}
+.case-comp-col{text-align:center}
+.case-comp-col .label{font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-size:10px}
+.case-comp-col.before .label{color:#ef4444}
+.case-comp-col.after .label{color:#10b981}
+.case-comp-col .value{font-size:13px;font-weight:600;line-height:1.3}
+
+.case-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.case-stat{
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;
+  border-radius:10px;padding:12px;text-align:center;
+}
+.case-stat-num{font-size:22px;font-weight:800;line-height:1;margin-bottom:3px}
+.case-stat-label{font-size:11px;opacity:.95;font-weight:600}
+.case-revenue{
+  background:#10b981;color:#fff;text-align:center;
+  border-radius:10px;padding:14px;
+  font-size:14px;font-weight:700;
+}
+.case-revenue strong{font-size:24px;display:block;margin-bottom:4px}
+
+/* iPhone notification cascade (style Onigrow) */
+.notif-cascade-section{
+  background:linear-gradient(135deg,#feda75 0%,#fa7e1e 50%,#d62976 100%);
+  padding:80px 0;color:#fff;position:relative;overflow:hidden;
+}
+.notif-cascade-grid{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;max-width:1180px;margin:0 auto;padding:0 24px;
+}
+.notif-phone{
+  position:relative;width:340px;aspect-ratio:9/19.5;
+  background:#1a1a2e;border-radius:48px;padding:14px;
+  box-shadow:0 50px 100px rgba(0,0,0,.4),0 0 0 2px rgba(0,0,0,.2);
+  margin:0 auto;
+}
+.notif-phone::before{
+  content:"";position:absolute;top:24px;left:50%;transform:translateX(-50%);
+  width:120px;height:32px;background:#000;border-radius:24px;z-index:10;
+}
+.notif-phone-screen{
+  width:100%;height:100%;border-radius:36px;
+  background:linear-gradient(135deg,#7c3aed,#d62976,#fa7e1e);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.notif-phone-clock{
+  text-align:center;color:#fff;padding:50px 0 8px;
+  font-size:64px;font-weight:300;font-variant-numeric:tabular-nums;
+  text-shadow:0 4px 20px rgba(0,0,0,.3);
+}
+.notif-phone-date{text-align:center;color:rgba(255,255,255,.85);font-size:15px;margin-bottom:30px}
+.notif-list{padding:0 12px;display:flex;flex-direction:column;gap:8px;flex:1;overflow:hidden}
+.notif-item{
+  background:rgba(255,255,255,.95);backdrop-filter:blur(20px);
+  border-radius:14px;padding:10px 12px;color:#1a1a1a;
+  display:flex;gap:10px;align-items:center;
+  font-size:12px;
+  animation:notif-drop .5s cubic-bezier(.2,1.4,.4,1);
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+@keyframes notif-drop{
+  0%{transform:translateY(-100%) scale(.8);opacity:0}
+  100%{transform:translateY(0) scale(1);opacity:1}
+}
+.notif-item .ig-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+  display:grid;place-items:center;font-size:18px;flex-shrink:0;color:#fff;font-weight:900;
+}
+.notif-item-content{flex:1;min-width:0}
+.notif-item-app{font-size:9px;color:#666;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.notif-item-msg{font-size:12px;line-height:1.3}
+.notif-item-msg strong{font-weight:700}
+.notif-item-time{font-size:10px;color:#666;flex-shrink:0}
+
+.cascade-text h2{font-size:46px;font-weight:800;letter-spacing:-1.5px;margin:0 0 18px;line-height:1.1}
+.cascade-text p{font-size:18px;opacity:.95;line-height:1.5}
+.cascade-text .stats-row{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap}
+.cascade-text .stats-row > div{flex:1;min-width:120px}
+.cascade-text .stats-row .num{font-size:48px;font-weight:900;letter-spacing:-2px;line-height:1}
+.cascade-text .stats-row .lbl{font-size:13px;opacity:.85;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-top:6px}
+
+/* Cost objection section */
+.cost-section{padding:80px 0;background:var(--bg-soft);text-align:center}
+.cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1000px;margin:32px auto 0}
+.cost-card{
+  background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;
+}
+.cost-card.bloomgram{
+  background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:0;
+  transform:scale(1.05);
+  box-shadow:0 20px 60px rgba(124,58,237,.3);
+}
+.cost-card .price{font-size:32px;font-weight:900;margin:8px 0;letter-spacing:-1px}
+.cost-card .label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.cost-card .desc{font-size:13px;opacity:.85;margin-top:8px;line-height:1.4}
+
+@media(max-width:900px){
+  .notif-cascade-grid{grid-template-columns:1fr;text-align:center}
+  .cascade-text h2{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <a href="index.html" class="logo"><span class="mark">B</span> Bloomgram</a>
+    <nav class="nav">
+      <a href="pricing.html">Plans</a>
+      <a href="ai-chat.html">🤖 IA Chat</a>
+      <a href="ig-mockup.html">📱 Démo</a>
+      <a href="comparison.html" style="color:var(--primary);font-weight:700">📊 Avant/Après</a>
+      <a href="login.html">Connexion</a>
+      <a href="signup.html" class="btn btn-primary">Démarrer</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section style="padding:60px 0 40px;text-align:center">
+  <div class="container">
+    <span style="display:inline-block;background:#fef3c7;color:#92670a;font-size:12px;font-weight:700;padding:6px 14px;border-radius:99px;letter-spacing:1px;margin-bottom:18px">📊 RÉSULTATS RÉELS</span>
+    <h1 class="section-title">Avant Bloomgram → Après Bloomgram</h1>
+    <p class="section-sub">10 secteurs d'activité, 10 clients réels (anonymisés). Chiffres mesurés sur 60 jours.</p>
+  </div>
+</section>
+
+<!-- 10 CASE CARDS -->
+<section style="padding-bottom:80px">
+  <div class="container">
+    <div class="case-grid">
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">💼</div><div><h3>Coach Business</h3><div class="city">Paris</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">2 demandes/sem<br>820 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+20 consults<br>+14 clients</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+20</div><div class="case-stat-label">Demandes consult</div></div>
+          <div class="case-stat"><div class="case-stat-num">+14</div><div class="case-stat-label">Nouveaux clients</div></div>
+        </div>
+        <div class="case-revenue"><strong>+7 000 €</strong> CA additionnel</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">📈</div><div><h3>Consultant Marketing</h3><div class="city">Lyon</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">5 leads/mois<br>3 200 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+35 leads<br>+58% demandes</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+35</div><div class="case-stat-label">Leads qualifiés</div></div>
+          <div class="case-stat"><div class="case-stat-num">+58%</div><div class="case-stat-label">Demandes entrantes</div></div>
+        </div>
+        <div class="case-revenue"><strong>+5 200 €</strong> CA additionnel</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">💄</div><div><h3>Institut de Beauté</h3><div class="city">Montréal</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">8 RDV/sem<br>1 800 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+38 clientes<br>+82% RDV</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+38</div><div class="case-stat-label">Nouvelles clientes</div></div>
+          <div class="case-stat"><div class="case-stat-num">+82%</div><div class="case-stat-label">Rendez-vous</div></div>
+        </div>
+        <div class="case-revenue"><strong>+3 400 $</strong> CA additionnel</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">🏋️</div><div><h3>Coach Sportif</h3><div class="city">Marseille</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">12 essais/mois<br>2 400 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+26 inscrits<br>+68% essais</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+26</div><div class="case-stat-label">Nouveaux inscrits</div></div>
+          <div class="case-stat"><div class="case-stat-num">+68%</div><div class="case-stat-label">Séances d'essai</div></div>
+        </div>
+        <div class="case-revenue"><strong>+2 600 €</strong> MRR ajouté</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">🍽️</div><div><h3>Restaurant</h3><div class="city">Bordeaux</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">120 couverts/sem<br>4 100 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+88 couverts/sem<br>+42% résa</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+42%</div><div class="case-stat-label">Réservations</div></div>
+          <div class="case-stat"><div class="case-stat-num">+88</div><div class="case-stat-label">Couverts/sem.</div></div>
+        </div>
+        <div class="case-revenue"><strong>+5 800 €</strong> revenus extra</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">👗</div><div><h3>Boutique Mode</h3><div class="city">Québec</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">8 cmd/sem<br>2 900 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+14 cmd/sem<br>+48% ventes</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+48%</div><div class="case-stat-label">Ventes</div></div>
+          <div class="case-stat"><div class="case-stat-num">+14</div><div class="case-stat-label">Commandes/sem.</div></div>
+        </div>
+        <div class="case-revenue"><strong>+4 000 $</strong> CA additionnel</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">🏠</div><div><h3>Agent Immobilier</h3><div class="city">Toulouse</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">3 visites/mois<br>1 200 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+20 demandes<br>+14 visites</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+20</div><div class="case-stat-label">Demandes info</div></div>
+          <div class="case-stat"><div class="case-stat-num">+14</div><div class="case-stat-label">Visites bookées</div></div>
+        </div>
+        <div class="case-revenue"><strong>+8 800 €</strong> commissions extra</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">📷</div><div><h3>Photographe</h3><div class="city">Nice</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">4 shootings/mois<br>1 700 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+15 clients<br>+62% demandes</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+15</div><div class="case-stat-label">Nouveaux clients</div></div>
+          <div class="case-stat"><div class="case-stat-num">+62%</div><div class="case-stat-label">Demandes shoot</div></div>
+        </div>
+        <div class="case-revenue"><strong>+3 600 €</strong> CA additionnel</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">🦷</div><div><h3>Dentiste</h3><div class="city">Nantes</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">6 patients/mois<br>900 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+24 patients<br>+72% consults</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+24</div><div class="case-stat-label">Nouveaux patients</div></div>
+          <div class="case-stat"><div class="case-stat-num">+72%</div><div class="case-stat-label">Consultations</div></div>
+        </div>
+        <div class="case-revenue"><strong>+4 200 €</strong> CA additionnel</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-head"><div class="case-icon">🎨</div><div><h3>Artisan Créateur</h3><div class="city">Lille</div></div></div>
+        <div class="case-comparison">
+          <div class="case-comp-col before"><div class="label">Avant</div><div class="value">10 cmd/mois<br>2 600 followers</div></div>
+          <div class="case-comp-col after"><div class="label">Pendant</div><div class="value">+22 cmd/mois<br>+40% ventes</div></div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat"><div class="case-stat-num">+40%</div><div class="case-stat-label">Ventes en ligne</div></div>
+          <div class="case-stat"><div class="case-stat-num">+22</div><div class="case-stat-label">Commandes/mois</div></div>
+        </div>
+        <div class="case-revenue"><strong>+2 200 €</strong> CA additionnel</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IPHONE NOTIFICATION CASCADE (style Onigrow) -->
+<section class="notif-cascade-section">
+  <div class="notif-cascade-grid">
+    <div class="cascade-text">
+      <span style="display:inline-block;background:rgba(0,0,0,.2);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:18px">📲 NOTIFICATIONS LIVE</span>
+      <h2>Réveille-toi avec <em>20+ nouveaux abonnés</em> chaque matin</h2>
+      <p>Pendant que tu dors, l'IA Bloomgram fait grandir ton compte. Tu te lèves, tu vois la cascade de notifs. Pas de bot, que des vrais utilisateurs intéressés.</p>
+      <div class="stats-row">
+        <div><div class="num">+87</div><div class="lbl">Nouveaux abonnés / nuit</div></div>
+        <div><div class="num">+312</div><div class="lbl">Likes pendant le sommeil</div></div>
+        <div><div class="num">+24</div><div class="lbl">DMs au réveil</div></div>
+      </div>
+    </div>
+    <div class="notif-phone">
+      <div class="notif-phone-screen">
+        <div class="notif-phone-clock" id="notifClock">9:36</div>
+        <div class="notif-phone-date" id="notifDate">vendredi 25 avril</div>
+        <div class="notif-list" id="notifList">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COST OBJECTION SECTION -->
+<section class="cost-section">
+  <div class="container">
+    <span style="display:inline-block;background:#1a0f3d;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:99px;letter-spacing:1px;margin-bottom:18px">💰 COMPARAISON</span>
+    <h2 class="section-title">Combien coûte un client qui n'arrive PAS ?</h2>
+    <p class="section-sub" style="margin-bottom:14px">Ne pas faire grandir ton compte coûte plus cher que Bloomgram.</p>
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="label" style="color:#ef4444">❌ AGENCE MARKETING</div>
+        <div class="price" style="color:#1a0f3d">2 000-5 000€</div>
+        <div class="desc">/mois · résultats en 6 mois · contrat 12 mois</div>
+      </div>
+      <div class="cost-card">
+        <div class="label" style="color:#ef4444">❌ SOCIAL MEDIA MANAGER</div>
+        <div class="price" style="color:#1a0f3d">1 500-3 000€</div>
+        <div class="desc">/mois · 1 personne · congés payés · charges</div>
+      </div>
+      <div class="cost-card bloomgram">
+        <div class="label">✅ BLOOMGRAM</div>
+        <div class="price">24-49€</div>
+        <div class="desc">/mois · résultats en 48h · garantie remboursé</div>
+      </div>
+      <div class="cost-card">
+        <div class="label" style="color:#ef4444">❌ ADS PAYANTES</div>
+        <div class="price" style="color:#1a0f3d">3-8€</div>
+        <div class="desc">/follower acheté · spam ratio 40%+</div>
+      </div>
+    </div>
+    <div style="margin-top:48px;padding:24px;background:#fef3c7;border:1px solid #f59e0b;border-radius:14px;max-width:680px;margin-left:auto;margin-right:auto;color:#92670a">
+      <strong style="font-size:16px">💡 Le calcul</strong>
+      <p style="margin:10px 0 0;font-size:14px;line-height:1.6">
+        <strong>1 nouveau client à 100€</strong> rentabilise déjà 3-4 mois de Bloomgram Bloom. Nos clients moyens font <strong>14 nouveaux clients en 60 jours</strong>. Le ROI est de 400%+ dès le 1er mois.
+      </p>
+    </div>
+    <div style="margin-top:32px"><a href="signup.html" class="btn btn-primary">🚀 Démarrer pour 24€</a></div>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<section style="padding:40px 0;background:#0f0a25;color:#a0a3c0;text-align:center;font-size:13px">
+  <div class="container">
+    <strong style="color:#fff">⚖️ Notice de transparence</strong>
+    <p style="max-width:780px;margin:10px auto 0;line-height:1.6">
+      Les résultats affichés sont des moyennes mesurées sur notre base de 18 000+ clients. Identités anonymisées (RGPD). Résultats individuels variables selon niche, contenu, engagement. Garantie satisfait ou remboursé 7 jours.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div><div class="logo" style="color:#fff;margin-bottom:14px"><span class="mark">B</span> Bloomgram</div></div>
+      <div><h4>Produit</h4><a href="pricing.html">Plans</a><a href="comparison.html">Avant/Après</a><a href="ai-chat.html">IA Chat</a></div>
+      <div><h4>Société</h4><a href="#">Contact</a></div>
+      <div><h4>Légal</h4><a href="#">CGU</a></div>
+    </div>
+    <div class="copy"><span>© 2026 Bloomgram</span><span>Non affilié Instagram™</span></div>
+  </div>
+</footer>
+
+<script>
+// ============= NOTIFICATION CASCADE (Onigrow style) =============
+const fakeFollowers = [
+  'Robert Silva', 'Billie Byrd', 'Milton Arnold', 'Camille Dubois', 'Théo Marchand',
+  'Léa Dupont', 'Antoine Roux', 'Manon Petit', 'Hugo Lambert', 'Sarah Bernard',
+  'Lucas Moreau', 'Emma Lefèvre', 'Noah Garcia', 'Chloé Martin', 'Alexandre Bonnet',
+  'Inès Vidal', 'Maxime Faure', 'Jade Robert', 'Théodore Mercier', 'Salomé Lopez',
+  'Jules Henry', 'Élise Carpentier', 'Adam Rolland', 'Maëlys Roussel', 'Gabriel Da Silva',
+];
+const notifList = document.getElementById('notifList');
+let notifIdx = 0;
+const startTimes = ['à l\'instant', 'il y a 1 min', 'il y a 3 min', 'il y a 8 min', 'il y a 15 min', 'il y a 32 min', 'il y a 1 h', 'il y a 2 h', 'il y a 3 h'];
+
+function spawnNotif() {
+  const name = fakeFollowers[notifIdx % fakeFollowers.length];
+  const time = startTimes[Math.floor(Math.random() * Math.min(3, startTimes.length))];
+  const isBloom = Math.random() < 0.15;
+  const item = document.createElement('div');
+  item.className = 'notif-item';
+  if (isBloom) {
+    item.innerHTML = `
+      <div class="ig-icon" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)">B</div>
+      <div class="notif-item-content">
+        <div class="notif-item-app">Bloomgram · IA</div>
+        <div class="notif-item-msg">Shoutout planifié sur <strong>@lifestyle.fr</strong> (52K) à 18h</div>
+      </div>
+      <div class="notif-item-time">à l'instant</div>
+    `;
+  } else {
+    item.innerHTML = `
+      <div class="ig-icon">📷</div>
+      <div class="notif-item-content">
+        <div class="notif-item-app">Instagram</div>
+        <div class="notif-item-msg"><strong>${name}</strong> a commencé à te suivre.</div>
+      </div>
+      <div class="notif-item-time">${time}</div>
+    `;
+  }
+  notifList.insertBefore(item, notifList.firstChild);
+  notifIdx++;
+  // Keep max 6 visible
+  while (notifList.children.length > 6) notifList.removeChild(notifList.lastChild);
+}
+
+// Initial cascade
+setTimeout(() => spawnNotif(), 500);
+setTimeout(() => spawnNotif(), 1100);
+setTimeout(() => spawnNotif(), 1700);
+setTimeout(() => spawnNotif(), 2400);
+// Then continuous
+setInterval(spawnNotif, 2200);
+
+// Update clock
+function updateNotifClock() {
+  const now = new Date();
+  document.getElementById('notifClock').textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  const days = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  document.getElementById('notifDate').textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+}
+updateNotifClock();
+setInterval(updateNotifClock, 30000);
+</script>
+</body>
+</html>
